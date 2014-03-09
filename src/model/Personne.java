@@ -14,13 +14,17 @@ public abstract class Personne {
     private String login, password;
     private String nom, prenom;
 
-    public Personne(String login, String password, String nom, String personne) {
+    public Personne(String login, String password, String nom, String prenom) {
         this.login = login;
         this.password = password;
         this.nom = nom;
         this.prenom = prenom;
     }
-
+    
+    public Personne(String nom, String prenom) {
+        this("","",nom,prenom);
+    }
+    
     public String getLogin() {
         return login;
     }

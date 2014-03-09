@@ -11,5 +11,28 @@ package model;
  * @author flemoal
  */
 public enum Matiere {
+    ANGLAIS("Anglais"),
+    EPS("EPS"),
+    FRANCAIS("Français"),
+    HISTOIRE_GEO("HistoireGéo"),
+    MATHS("Maths"),
+    PHYSIQUE("Physique"),
+    SVT("SVT");
     
+    private String name;
+    
+    Matiere(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    } 
+    
+    public String toString()
+    {
+        return name;
+    }
 }

@@ -10,6 +10,29 @@ package model;
  *
  * @author flemoal
  */
-public class Eleve {
+public class Eleve extends Personne {
+    Moyenne[] listeMoyenne;
+    String commentaireGeneral;
     
+    public Eleve(String nom, String personne) {
+        super(nom, personne);
+        commentaireGeneral = "";
+        listeMoyenne = new Moyenne[Matiere.values().length];
+        for(int i=0;i<listeMoyenne.length;i++)
+            listeMoyenne[i]=new Moyenne();
+    }
+    
+    public float getNote(Matiere m)
+    {
+        if(listeMoyenne[m.ordinal()]!=null)
+            return listeMoyenne[m.ordinal()].getNote();
+        return -1;
+    }
+    
+    public String getCommentaire(Matiere m)
+    {
+        if(listeMoyenne[m.ordinal()]!=null)
+            return listeMoyenne[m.ordinal()].getCommentaire();
+        return "";
+    }
 }

@@ -12,14 +12,14 @@ import model.Etablissement;
  *
  * @author flemoal
  */
-public class EntryPoint {
+public class ControllerEtablissement {
+    Etablissement etablissement;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        ControllerEtablissement ce = new ControllerEtablissement();
-        ce.demarrerControllerEtablissement();
+    public ControllerEtablissement() {
+        this.etablissement = new Etablissement();
     }
     
+    public void demarrerControllerEtablissement() {
+        
+    }
 }

@@ -15,10 +15,12 @@ import java.util.TreeSet;
 public class Etablissement {
     private TreeSet<Classe> classes;
     private TreeSet<Enseignant> enseignants;
-
-    public Etablissement() {
-        classes = new TreeSet<Classe>(new ClasseComparator());
-        enseignants = new TreeSet<Enseignant>(new EnseignantComparator());
+    private Proviseur proviseur;
+    
+    public Etablissement(Proviseur proviseur) {
+        this.classes = new TreeSet<Classe>(new ClasseComparator());
+        this.enseignants = new TreeSet<Enseignant>(new EnseignantComparator());
+        this.proviseur = proviseur;
     }
 
     public TreeSet<Classe> getClasses() {
@@ -27,5 +29,9 @@ public class Etablissement {
 
     public TreeSet<Enseignant> getEnseignants() {
         return enseignants;
+    }
+
+    public Proviseur getProviseur() {
+        return proviseur;
     }
 }

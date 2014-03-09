@@ -6,7 +6,13 @@
 
 package controller;
 
+import model.Classe;
+import model.Enseignant;
 import model.Etablissement;
+import model.Matiere;
+import model.Niveau;
+import model.Proviseur;
+import view.VueLogin;
 
 /**
  *
@@ -14,12 +20,15 @@ import model.Etablissement;
  */
 public class ControllerEtablissement {
     Etablissement etablissement;
-
+    
     public ControllerEtablissement() {
-        this.etablissement = new Etablissement();
+        this.etablissement = new Etablissement(new Proviseur("test", "test", "test", "test"));
+        
+        this.etablissement.getClasses().add(new Classe(Niveau.SIXIEME, 1));
+        this.etablissement.getEnseignants().add(new Enseignant("robert", "toto", "robert", "dupont", Matiere.ANGLAIS));
     }
     
     public void demarrerControllerEtablissement() {
-        
+        new VueLogin().setVisible(true);
     }
 }

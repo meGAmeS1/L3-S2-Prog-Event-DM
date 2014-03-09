@@ -15,8 +15,8 @@ import java.util.Comparator;
 public class ClasseComparator implements Comparator<Classe> {
     public int compare(Classe o1, Classe o2) 
     {
-        if(o1.niveau.ordinal() != o2.niveau.ordinal())
-            return o1.niveau.ordinal() - o2.niveau.ordinal();
-        return o1.numero-o2.numero;
+        if(o1.getNiveau().ordinal() != o2.getNiveau().ordinal())
+            return o1.getNiveau().ordinal() - o2.getNiveau().ordinal();
+        return o1.getNumero()-o2.getNumero();
     }
 }

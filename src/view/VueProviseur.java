@@ -3,22 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.ControllerEtablissement;
+import java.util.Iterator;
+import java.util.TreeSet;
+import javax.swing.DefaultListModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import model.Classe;
+import model.Eleve;
+import model.Enseignant;
 
 /**
  *
  * @author flemoal
  */
 public class VueProviseur extends javax.swing.JFrame {
+
     private ControllerEtablissement ce;
+    private DefaultListModel listeEleves, listeEnseignants;
+
     /**
      * Creates new form VueProviseur
      */
     public VueProviseur(ControllerEtablissement ce) {
         this.ce = ce;
+        this.listeEleves = new DefaultListModel();
+        this.listeEnseignants = new DefaultListModel();
         initComponents();
     }
 
@@ -35,45 +51,80 @@ public class VueProviseur extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
+        jPanelInfos = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListEleves = new javax.swing.JList();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jListEnseignants = new javax.swing.JList();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jButtonDeleteEnseignant = new javax.swing.JButton();
+        jButtonAddEnseignant = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion de l'établissement - Proviseur");
 
+        jSplitPane1.setDividerLocation(150);
+        jSplitPane1.setResizeWeight(0.1);
+
+        jTree1.setModel(getTreeClasses());
+        jTree1.setRootVisible(false);
+        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                jTree1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTree1);
 
         jSplitPane1.setLeftComponent(jScrollPane1);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
-        );
+        jPanelInfos.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
 
-        jSplitPane1.setRightComponent(jPanel1);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Élèves"));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jListEleves.setModel(listeEleves);
+        jScrollPane3.setViewportView(jListEleves);
+
+        jPanel1.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        jPanelInfos.add(jPanel1);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Enseignants"));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jListEnseignants.setModel(listeEnseignants);
+        jScrollPane4.setViewportView(jListEnseignants);
+
+        jPanel2.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+
+        jPanelInfos.add(jPanel2);
+
+        jSplitPane1.setRightComponent(jPanelInfos);
 
         jTabbedPane1.addTab("Classes", jSplitPane1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(getTableEnseignants());
         jScrollPane2.setViewportView(jTable1);
 
-        jTabbedPane1.addTab("Enseignants", jScrollPane2);
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jButtonDeleteEnseignant.setText("Supprimer");
+        jPanel4.add(jButtonDeleteEnseignant);
+
+        jButtonAddEnseignant.setText("Ajouter");
+        jButtonAddEnseignant.setToolTipText("");
+        jPanel4.add(jButtonAddEnseignant);
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.SOUTH);
+
+        jTabbedPane1.addTab("Enseignants", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,14 +144,171 @@ public class VueProviseur extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+        if (node != null && node.isLeaf()) {
+            // Récupération de la classe
+            Object nodeInfo = node.getUserObject();
+            Classe classe = (Classe) nodeInfo;
+
+            // Effacement des listes
+            this.listeEleves.clear();
+            this.listeEnseignants.clear();
+
+            // Remplissage de la liste des élèves
+            for (Eleve e : classe.getEleves()) {
+                this.listeEleves.addElement(e.getPrenom() + " " + e.getNom());
+            }
+
+            // Remplissage de la liste des enseignants
+            for (Enseignant e : classe.getEnseignants()) {
+                // S'agissant d'un tableau il faut ignorer les éléments
+                // manquants au cas où
+                if (e == null) {
+                    continue;
+                }
+
+                String text = e.getNom() + " (" + e.getMatiere().getName() + ")";
+
+                // Ajout du gras pour le professeur principal
+                if (e.equals(classe.getProfesseurPrincipal())) {
+                    text = "<html><b>" + text + "</b></html>";
+                }
+
+                this.listeEnseignants.addElement(text);
+            }
+
+            // Affichage des listes
+            this.jPanel1.setVisible(true);
+            this.jPanel2.setVisible(true);
+
+        } else {
+            this.jPanel1.setVisible(false);
+            this.jPanel2.setVisible(false);
+        }
+    }//GEN-LAST:event_jTree1ValueChanged
+
+    private TreeModel getTreeClasses() {
+        DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Root");
+
+        Iterator iter = this.ce.getEtablissement().getClasses().iterator();
+        Classe cPrev = null;
+        DefaultMutableTreeNode nodeClasse = null;
+
+        while (iter.hasNext()) {
+            Classe cCurr = (Classe) iter.next();
+
+            // Si on entre dans un nouveau niveau de classe alors faire
+            // un nouveau niveau et inscrire l'ancien dans la racine
+            if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
+                if (nodeClasse != null) {
+                    treeRoot.add(nodeClasse);
+                }
+
+                nodeClasse = new DefaultMutableTreeNode(cCurr.getNiveau().getName());
+            }
+            cPrev = cCurr;
+            nodeClasse.add(new DefaultMutableTreeNode(cCurr));
+
+        }
+
+        if (nodeClasse != null) {
+            treeRoot.add(nodeClasse);
+        }
+
+        return new DefaultTreeModel(treeRoot);
+    }
+
+    private TableModel getTableEnseignants() {
+        return new MyTableModel(this.ce.getEtablissement().getEnseignants());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAddEnseignant;
+    private javax.swing.JButton jButtonDeleteEnseignant;
+    private javax.swing.JList jListEleves;
+    private javax.swing.JList jListEnseignants;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelInfos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
+
+    
+    class MyTableModel extends AbstractTableModel {
+        private String[] columnNames = {"Nom","Prénom","Matière"};
+        private Object[][] data;
+
+        public MyTableModel(TreeSet<Enseignant> enseignants) {
+            this.data = new Object[enseignants.size()][3];
+            int i = 0;
+            for(Enseignant e : enseignants) {
+                data[i][0] = e.getNom();
+                data[i][1] = e.getPrenom();
+                data[i][2] = e.getMatiere();
+                i++;
+            }
+        }
+
+        
+        
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        public int getRowCount() {
+            return data.length;
+        }
+
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        /*
+         * JTable uses this method to determine the default renderer/
+         * editor for each cell.  If we didn't implement this method,
+         * then the last column would contain text ("true"/"false"),
+         * rather than a check box.
+         */
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * editable.
+         */
+        public boolean isCellEditable(int row, int col) {
+            //Note that the data/cell address is constant,
+            //no matter where the cell appears onscreen.
+            if (col < 2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /*
+         * Don't need to implement this method unless your table's
+         * data can change.
+         */
+        public void setValueAt(Object value, int row, int col) {
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+        }
+
+    }
 }

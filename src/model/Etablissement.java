@@ -18,8 +18,8 @@ public class Etablissement {
     private Proviseur proviseur;
     
     public Etablissement(Proviseur proviseur) {
-        this.classes = new TreeSet<Classe>(new ClasseComparator());
-        this.enseignants = new TreeSet<Enseignant>(new EnseignantComparator());
+        this.classes = new TreeSet<>(new ClasseComparator());
+        this.enseignants = new TreeSet<>(new EnseignantComparator());
         this.proviseur = proviseur;
     }
 
@@ -33,5 +33,13 @@ public class Etablissement {
 
     public Proviseur getProviseur() {
         return proviseur;
+    }
+    
+    public boolean addEnseignant (Enseignant e) {
+        return this.enseignants.add(e);
+    }
+    
+    public boolean addClasse(Classe c) {
+        return this.classes.add(c);
     }
 }

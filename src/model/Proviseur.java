@@ -10,15 +10,8 @@ package model;
  *
  * @author flemoal
  */
-public class Enseignant extends Personne {
-    private final Matiere matiere;
-
-    public Enseignant(String login, String password, String nom, String personne, Matiere matiere) {
+public class Proviseur extends Personne {
+    public Proviseur(String login, String password, String nom, String personne) {
         super(login, password, nom, personne);
-        this.matiere = matiere;
     }
-
-    public Matiere getMatiere() {
-        return matiere;
-    }   
 }

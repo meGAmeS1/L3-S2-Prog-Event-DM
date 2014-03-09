@@ -6,16 +6,21 @@
 
 package view;
 
+import controller.ControllerEtablissement;
+
 /**
  *
  * @author flemoal
  */
 public class VueLogin extends javax.swing.JFrame {
-
+    
+    private ControllerEtablissement ce;
+    
     /**
      * Creates new form VueLogin
      */
-    public VueLogin() {
+    public VueLogin(ControllerEtablissement ce) {
+        this.ce = ce;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -32,9 +37,9 @@ public class VueLogin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jPPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jBValider = new javax.swing.JButton();
         jBQuit = new javax.swing.JButton();
@@ -54,9 +59,9 @@ public class VueLogin extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.2;
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTLoginActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -65,7 +70,7 @@ public class VueLogin extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.8;
-        jPanel1.add(jTextField1, gridBagConstraints);
+        jPanel1.add(jTLogin, gridBagConstraints);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Mot de passe");
@@ -80,7 +85,7 @@ public class VueLogin extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.8;
-        jPanel1.add(jPasswordField1, gridBagConstraints);
+        jPanel1.add(jPPassword, gridBagConstraints);
 
         jBValider.setText("Valider");
         jBValider.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +97,11 @@ public class VueLogin extends javax.swing.JFrame {
 
         jBQuit.setText("Quitter");
         jBQuit.setToolTipText("");
+        jBQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBQuitActionPerformed(evt);
+            }
+        });
         jPanel2.add(jBQuit);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,57 +127,27 @@ public class VueLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTLoginActionPerformed
 
     private void jBValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBValiderActionPerformed
-        // TODO add your handling code here:
+        this.ce.login(this,this.jTLogin.getText(),this.jPPassword.getPassword());
     }//GEN-LAST:event_jBValiderActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VueLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VueLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VueLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VueLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jBQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitActionPerformed
+        this.ce.quitLogin(this);
+    }//GEN-LAST:event_jBQuitActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VueLogin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBQuit;
     private javax.swing.JButton jBValider;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField jPPassword;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTLogin;
     // End of variables declaration//GEN-END:variables
 }

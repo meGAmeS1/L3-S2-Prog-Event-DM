@@ -6,8 +6,6 @@
 
 package controller;
 
-import model.Etablissement;
-
 /**
  *
  * @author flemoal
@@ -18,6 +16,7 @@ public class EntryPoint {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         ControllerEtablissement ce = new ControllerEtablissement();
         ce.demarrerControllerEtablissement();
     }

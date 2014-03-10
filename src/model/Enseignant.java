@@ -13,8 +13,8 @@ package model;
 public class Enseignant extends Personne {
     private final Matiere matiere;
 
-    public Enseignant(String login, String password, String nom, String personne, Matiere matiere) {
-        super(login, password, nom, personne);
+    public Enseignant(String login, String password, String nom, String prenom, Matiere matiere) {
+        super(login, password, nom, prenom);
         this.matiere = matiere;
     }
 

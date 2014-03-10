@@ -17,7 +17,6 @@ import model.Niveau;
  * @author flemoal
  */
 public class VueAddClasse extends javax.swing.JDialog {
-    private DefaultComboBoxModel listeNiveau;
     private ControllerEtablissement ce;
     /**
      * Creates new form VueAddClasse
@@ -25,7 +24,6 @@ public class VueAddClasse extends javax.swing.JDialog {
     public VueAddClasse(JFrame parent, ControllerEtablissement ce) {
         super(parent, true);
         this.ce = ce;
-        this.listeNiveau = new DefaultComboBoxModel(Niveau.values());
         initComponents();
         
         
@@ -89,7 +87,7 @@ public class VueAddClasse extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabelNumero, gridBagConstraints);
 
-        jComboBox1.setModel(listeNiveau);
+        jComboBox1.setModel(new DefaultComboBoxModel(Niveau.values()));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

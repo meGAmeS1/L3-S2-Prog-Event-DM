@@ -96,7 +96,7 @@
         <Component class="javax.swing.JComboBox" name="jComboBox1">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="listeNiveau" type="code"/>
+              <Connection code="new DefaultComboBoxModel(Niveau.values())" type="code"/>
             </Property>
           </Properties>
           <Events>

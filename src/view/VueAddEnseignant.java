@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.ControllerEtablissement;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import model.Matiere;
 
 /**
  *
  * @author flemoal
  */
 public class VueAddEnseignant extends javax.swing.JDialog {
+
     private ControllerEtablissement ce;
+
     /**
      * Creates new form VueAddEnseignant
      */
@@ -37,20 +40,20 @@ public class VueAddEnseignant extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTFNom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTFPrenom = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTFLogin = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jTFMDP1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTFMDP2 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jCBMatiere = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajout d'un professeur");
@@ -64,12 +67,18 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(jLabel1, gridBagConstraints);
+
+        jTFNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFNomActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(jTFNom, gridBagConstraints);
 
         jLabel2.setText("Prénom :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -82,7 +91,7 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jTextField2, gridBagConstraints);
+        jPanel2.add(jTFPrenom, gridBagConstraints);
 
         jLabel3.setText("Login :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -95,7 +104,7 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jTextField3, gridBagConstraints);
+        jPanel2.add(jTFLogin, gridBagConstraints);
 
         jLabel4.setText("Mot de passe :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -108,7 +117,7 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jTextField4, gridBagConstraints);
+        jPanel2.add(jTFMDP1, gridBagConstraints);
 
         jLabel5.setText("Confirmation du MDP :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -121,7 +130,7 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jTextField5, gridBagConstraints);
+        jPanel2.add(jTFMDP2, gridBagConstraints);
 
         jLabel6.setText("Matière enseignée :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -130,24 +139,29 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(jLabel6, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBMatiere.setModel(new DefaultComboBoxModel(Matiere.values()));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel2.add(jComboBox1, gridBagConstraints);
+        jPanel2.add(jCBMatiere, gridBagConstraints);
 
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancel.setText("Annuler");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCancelActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1);
+        jPanel3.add(jButtonCancel);
 
-        jButton2.setText("Ajouter");
-        jPanel3.add(jButton2);
+        jButtonAdd.setText("Ajouter");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonAdd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,14 +181,24 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jTFNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFNomActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+       this.ce.addEnseignant(this, jTFNom.getText(), jTFPrenom.getText(),
+                jTFLogin.getText(), jTFMDP1.getText(), jTFMDP2.getText(),
+                (Matiere) jCBMatiere.getSelectedItem());
+    }//GEN-LAST:event_jButtonAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JComboBox jCBMatiere;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -183,10 +207,10 @@ public class VueAddEnseignant extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTFLogin;
+    private javax.swing.JTextField jTFMDP1;
+    private javax.swing.JTextField jTFMDP2;
+    private javax.swing.JTextField jTFNom;
+    private javax.swing.JTextField jTFPrenom;
     // End of variables declaration//GEN-END:variables
 }

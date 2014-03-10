@@ -40,8 +40,9 @@ public class VueProviseur extends javax.swing.JFrame {
         this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
         initComponents();
         
-        this.jPanel1.setVisible(false);
-        this.jPanel2.setVisible(false);
+        setLocationRelativeTo(null);
+        this.jPanelListeEleves.setVisible(false);
+        this.jPanelListeEnseigants.setVisible(false);
     }
 
     /**
@@ -53,84 +54,84 @@ public class VueProviseur extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane = new javax.swing.JTabbedPane();
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jTreeClasses = new javax.swing.JTree();
         jPanelInfos = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelListeEleves = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListEleves = new javax.swing.JList();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelListeEnseigants = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jListEnseignants = new javax.swing.JList();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelEnseigants = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableEnseignants = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButtonDeleteEnseignant = new javax.swing.JButton();
         jButtonAddEnseignant = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenuFichier = new javax.swing.JMenu();
+        jMenuItemDisconnect = new javax.swing.JMenuItem();
+        jMenuItemQuit = new javax.swing.JMenuItem();
+        jMenuClasse = new javax.swing.JMenu();
+        jMenuItemAddClasse = new javax.swing.JMenuItem();
+        jMenuItemAddEleve = new javax.swing.JMenuItem();
+        jMenuItemAffecterE = new javax.swing.JMenuItem();
+        jMenuEnseignants = new javax.swing.JMenu();
+        jMenuItemAddEnseignant = new javax.swing.JMenuItem();
+        jMenuItemDelEnseignant = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Gestion de l'établissement - Proviseur");
 
         jSplitPane1.setDividerLocation(150);
         jSplitPane1.setResizeWeight(0.1);
 
-        jTree1.setModel(getTreeClasses());
-        jTree1.setRootVisible(false);
-        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+        jTreeClasses.setModel(getTreeClasses());
+        jTreeClasses.setRootVisible(false);
+        jTreeClasses.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                jTree1ValueChanged(evt);
+                jTreeClassesValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane1.setViewportView(jTreeClasses);
 
         jSplitPane1.setLeftComponent(jScrollPane1);
 
         jPanelInfos.setLayout(new java.awt.GridLayout(2, 1, 0, 10));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Élèves"));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanelListeEleves.setBorder(javax.swing.BorderFactory.createTitledBorder("Élèves"));
+        jPanelListeEleves.setLayout(new java.awt.BorderLayout());
 
         jListEleves.setModel(listeEleves);
         jScrollPane3.setViewportView(jListEleves);
 
-        jPanel1.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        jPanelListeEleves.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        jPanelInfos.add(jPanel1);
+        jPanelInfos.add(jPanelListeEleves);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Enseignants"));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanelListeEnseigants.setBorder(javax.swing.BorderFactory.createTitledBorder("Enseignants"));
+        jPanelListeEnseigants.setLayout(new java.awt.BorderLayout());
 
         jListEnseignants.setModel(listeEnseignants);
         jScrollPane4.setViewportView(jListEnseignants);
 
-        jPanel2.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+        jPanelListeEnseigants.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        jPanelInfos.add(jPanel2);
+        jPanelInfos.add(jPanelListeEnseigants);
 
         jSplitPane1.setRightComponent(jPanelInfos);
 
-        jTabbedPane1.addTab("Classes", jSplitPane1);
+        jTabbedPane.addTab("Classes", jSplitPane1);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanelEnseigants.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(this.tableEnseignants);
-        jScrollPane2.setViewportView(jTable1);
+        jTableEnseignants.setModel(this.tableEnseignants);
+        jScrollPane2.setViewportView(jTableEnseignants);
 
-        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jPanelEnseigants.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jButtonDeleteEnseignant.setText("Supprimer");
         jButtonDeleteEnseignant.addActionListener(new java.awt.event.ActionListener() {
@@ -149,139 +150,141 @@ public class VueProviseur extends javax.swing.JFrame {
         });
         jPanel4.add(jButtonAddEnseignant);
 
-        jPanel3.add(jPanel4, java.awt.BorderLayout.SOUTH);
+        jPanelEnseigants.add(jPanel4, java.awt.BorderLayout.SOUTH);
 
-        jTabbedPane1.addTab("Enseignants", jPanel3);
+        jTabbedPane.addTab("Enseignants", jPanelEnseigants);
 
-        jMenu1.setText("Fichier");
+        jMenuFichier.setText("Fichier");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.META_MASK));
-        jMenuItem1.setText("Déconnexion");
-        jMenuItem1.setToolTipText("");
-        jMenu1.add(jMenuItem1);
+        jMenuItemDisconnect.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.META_MASK));
+        jMenuItemDisconnect.setText("Déconnexion");
+        jMenuItemDisconnect.setToolTipText("");
+        jMenuFichier.add(jMenuItemDisconnect);
 
-        jMenuItem2.setText("Quitter");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemQuit.setText("Quitter");
+        jMenuItemQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItemQuitActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenuFichier.add(jMenuItemQuit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar.add(jMenuFichier);
 
-        jMenu2.setText("Classe");
-        jMenu2.setToolTipText("");
+        jMenuClasse.setText("Classe");
+        jMenuClasse.setToolTipText("");
 
-        jMenuItem3.setText("Ajouter une classe");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAddClasse.setText("Ajouter une classe");
+        jMenuItemAddClasse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMenuItemAddClasseActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenuClasse.add(jMenuItemAddClasse);
 
-        jMenuItem4.setText("Ajouter un élève");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAddEleve.setText("Ajouter un élève");
+        jMenuItemAddEleve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItemAddEleveActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenuClasse.add(jMenuItemAddEleve);
 
-        jMenuItem5.setText("Affecter un enseignant");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAffecterE.setText("Affecter un enseignant");
+        jMenuItemAffecterE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuItemAffecterEActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenuClasse.add(jMenuItemAffecterE);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar.add(jMenuClasse);
 
-        jMenu3.setText("Enseignants");
+        jMenuEnseignants.setText("Enseignants");
 
-        jMenuItem6.setText("Ajouter un enseignant");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAddEnseignant.setText("Ajouter un enseignant");
+        jMenuItemAddEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItemAddEnseignantActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem6);
+        jMenuEnseignants.add(jMenuItemAddEnseignant);
 
-        jMenuItem7.setText("Supprimer un enseignant");
-        jMenuItem7.setEnabled(false);
-        jMenu3.add(jMenuItem7);
+        jMenuItemDelEnseignant.setText("Supprimer un enseignant");
+        jMenuItemDelEnseignant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDelEnseignantActionPerformed(evt);
+            }
+        });
+        jMenuEnseignants.add(jMenuItemDelEnseignant);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar.add(jMenuEnseignants);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+    private void jTreeClassesValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeClassesValueChanged
         this.refreshClasseInfos();
-    }//GEN-LAST:event_jTree1ValueChanged
+    }//GEN-LAST:event_jTreeClassesValueChanged
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItemAddClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddClasseActionPerformed
         new VueAddClasse(this, this.ce).setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jMenuItemAddClasseActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItemAffecterEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAffecterEActionPerformed
         new VueAffectEnseignant(this, this.ce).setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuItemAffecterEActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jMenuItemQuitActionPerformed
 
     private void jButtonDeleteEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteEnseignantActionPerformed
-        List<Enseignant> le = new ArrayList<>();
-        for(int i : jTable1.getSelectedRows()) {
-            le.add((Enseignant) this.ce.getEtablissement().getEnseignants().toArray()[i]);
-        }
-        
-        this.ce.getEtablissement().getEnseignants().removeAll(le);
-        this.tableEnseignants.refresh();
+        this.deleteEnseignants();
     }//GEN-LAST:event_jButtonDeleteEnseignantActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItemAddEleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddEleveActionPerformed
         new VueAddEleve(this, this.ce).setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jMenuItemAddEleveActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        new VueAddEnseignant(this, this.ce).setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuItemAddEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAddEnseignantActionPerformed
+        this.addEnseignant();
+    }//GEN-LAST:event_jMenuItemAddEnseignantActionPerformed
 
     private void jButtonAddEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddEnseignantActionPerformed
-        new VueAddEnseignant(this, this.ce).setVisible(true);
+        this.addEnseignant();
     }//GEN-LAST:event_jButtonAddEnseignantActionPerformed
 
+    private void jMenuItemDelEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDelEnseignantActionPerformed
+        this.deleteEnseignants();
+    }//GEN-LAST:event_jMenuItemDelEnseignantActionPerformed
+    
     private TreeModel getTreeClasses() {
         // Racine de l'arbre
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Root");
-        
+
         Classe cPrev = null;
         DefaultMutableTreeNode nodeClasse = null;
-        
+
         // Parcours de toutes les classes de l'établissement
-        for(Classe cCurr : this.ce.getEtablissement().getClasses()) {
+        for (Classe cCurr : this.ce.getEtablissement().getClasses()) {
             // Si on entre dans un nouveau niveau de classe alors faire
             // un nouveau niveau et inscrire l'ancien dans la racine
             if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
@@ -307,34 +310,34 @@ public class VueProviseur extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDeleteEnseignant;
     private javax.swing.JList jListEleves;
     private javax.swing.JList jListEnseignants;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenu jMenuClasse;
+    private javax.swing.JMenu jMenuEnseignants;
+    private javax.swing.JMenu jMenuFichier;
+    private javax.swing.JMenuItem jMenuItemAddClasse;
+    private javax.swing.JMenuItem jMenuItemAddEleve;
+    private javax.swing.JMenuItem jMenuItemAddEnseignant;
+    private javax.swing.JMenuItem jMenuItemAffecterE;
+    private javax.swing.JMenuItem jMenuItemDelEnseignant;
+    private javax.swing.JMenuItem jMenuItemDisconnect;
+    private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelEnseigants;
     private javax.swing.JPanel jPanelInfos;
+    private javax.swing.JPanel jPanelListeEleves;
+    private javax.swing.JPanel jPanelListeEnseigants;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTableEnseignants;
+    private javax.swing.JTree jTreeClasses;
     // End of variables declaration//GEN-END:variables
 
     public void refreshClasseInfos() {
-DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTreeClasses.getLastSelectedPathComponent();
         if (node != null && node.isLeaf()) {
             // Récupération de la classe
             Object nodeInfo = node.getUserObject();
@@ -368,27 +371,43 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
             }
 
             // Affichage des listes
-            this.jPanel1.setVisible(true);
-            this.jPanel2.setVisible(true);
+            this.jPanelListeEleves.setVisible(true);
+            this.jPanelListeEnseigants.setVisible(true);
 
         } else {
-            this.jPanel1.setVisible(false);
-            this.jPanel2.setVisible(false);
+            this.jPanelListeEleves.setVisible(false);
+            this.jPanelListeEnseigants.setVisible(false);
         }
     }
 
+    private void deleteEnseignants() {
+        List<Enseignant> le = new ArrayList<>();
+        for (int i : jTableEnseignants.getSelectedRows()) {
+            le.add((Enseignant) this.ce.getEtablissement().getEnseignants().toArray()[i]);
+        }
+
+//        this.ce.getEtablissement().getEnseignants().removeAll(le);
+        this.ce.deleteEnseignants(le, this);
+        this.tableEnseignants.refresh();
+    }
+
+    private void addEnseignant() {
+        new VueAddEnseignant(this, this.ce).setVisible(true);
+        this.tableEnseignants.refresh();
+    }
     
     class MyTableModel extends AbstractTableModel {
+
         private VueProviseur vp;
         private TreeSet<Enseignant> enseignants;
-        private String[] columnNames = {"Nom","Prénom","Matière"};
+        private String[] columnNames = {"Nom", "Prénom", "Matière"};
 //        private Object[][] data;
-        
+
         public MyTableModel(TreeSet<Enseignant> enseignants, VueProviseur vp) {
 //            this.data = new Object[enseignants.size()][3];
             this.enseignants = enseignants;
             this.vp = vp;
-            
+
 //            int i = 0;
 //            for(Enseignant e : enseignants) {
 //                data[i][0] = e.getNom();
@@ -398,8 +417,6 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
 //            }
         }
 
-        
-        
         public int getColumnCount() {
             return columnNames.length;
         }
@@ -415,7 +432,7 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
         public Object getValueAt(int row, int col) {
 //            return data[row][col];
             Enseignant e = (Enseignant) enseignants.toArray()[row];
-            switch(col) {
+            switch (col) {
                 case 0:
                     return e.getNom();
                 case 1:
@@ -460,22 +477,25 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
 //            fireTableCellUpdated(row, col);
 //            
             Enseignant e = (Enseignant) enseignants.toArray()[row];
-            switch(col) {
+            switch (col) {
                 case 0:
-                    if(value instanceof String) e.setNom((String) value);
+                    if (value instanceof String) {
+                        e.setNom((String) value);
+                    }
                     break;
                 case 1:
-                    if(value instanceof String) e.setPrenom((String) value);
+                    if (value instanceof String) {
+                        e.setPrenom((String) value);
+                    }
                     break;
             }
-            
+
             this.vp.refreshClasseInfos();
         }
-        
+
 //        public void removeRow(Integer row) {
 //            enseignants.remove((Enseignant) enseignants.toArray()[row]);
 //        }
-        
         public void refresh() {
             fireTableDataChanged();
         }

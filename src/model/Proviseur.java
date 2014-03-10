@@ -11,7 +11,7 @@ package model;
  * @author flemoal
  */
 public class Proviseur extends Personne {
-    public Proviseur(String login, String password, String nom, String personne) {
-        super(login, password, nom, personne);
+    public Proviseur(String login, String password, String nom, String prenom) {
+        super(login, password, nom, prenom);
     }
 }

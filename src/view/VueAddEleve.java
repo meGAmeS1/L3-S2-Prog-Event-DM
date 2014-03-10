@@ -3,17 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.ControllerEtablissement;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import model.Classe;
+import model.Niveau;
 
 /**
  *
  * @author flemoal
  */
 public class VueAddEleve extends javax.swing.JDialog {
+
+    private DefaultComboBoxModel listeNiveau;
     private ControllerEtablissement ce;
 
     /**
@@ -22,10 +26,22 @@ public class VueAddEleve extends javax.swing.JDialog {
     public VueAddEleve(JFrame parent, ControllerEtablissement ce) {
         super(parent, true);
         this.ce = ce;
+        this.listeNiveau = new DefaultComboBoxModel();
+        
         initComponents();
+        this.fillJCBNumero();
+        
         setLocationRelativeTo(parent);
     }
+    
+    private void fillJCBNumero() {
+        Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
 
+        for(Classe c : ce.getEtablissement().getClasses()) {
+            if (c.getNiveau().compareTo(n) == 0)
+                this.listeNiveau.addElement(c.getNiveau());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,12 +54,12 @@ public class VueAddEleve extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTFNom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTFPrenom = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        jCBNiveau = new javax.swing.JComboBox();
+        jCBNumero = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -66,7 +82,7 @@ public class VueAddEleve extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.8;
-        jPanel1.add(jTextField1, gridBagConstraints);
+        jPanel1.add(jTFNom, gridBagConstraints);
 
         jLabel2.setText("Prénom :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -79,30 +95,35 @@ public class VueAddEleve extends javax.swing.JDialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        jPanel1.add(jTextField2, gridBagConstraints);
+        jPanel1.add(jTFPrenom, gridBagConstraints);
 
-        jLabel3.setText("Classe et groupe :");
+        jLabel3.setText("Niveau et groupe :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBNiveau.setModel(new DefaultComboBoxModel(Niveau.values()));
+        jCBNiveau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBNiveauActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.5;
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(jCBNiveau, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBNumero.setModel(this.listeNiveau);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.5;
-        jPanel1.add(jComboBox2, gridBagConstraints);
+        jPanel1.add(jCBNumero, gridBagConstraints);
 
         jButton1.setText("Annuler");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -119,14 +140,19 @@ public class VueAddEleve extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -138,18 +164,22 @@ public class VueAddEleve extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
+        this.fillJCBNumero();
+    }//GEN-LAST:event_jCBNiveauActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jCBNiveau;
+    private javax.swing.JComboBox jCBNumero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTFNom;
+    private javax.swing.JTextField jTFPrenom;
     // End of variables declaration//GEN-END:variables
 }

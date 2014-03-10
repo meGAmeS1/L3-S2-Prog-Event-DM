@@ -150,7 +150,7 @@ public class VueProviseur extends javax.swing.JFrame {
         });
         jPanel4.add(jButtonAddEnseignant);
 
-        jPanelEnseigants.add(jPanel4, java.awt.BorderLayout.SOUTH);
+        jPanelEnseigants.add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         jTabbedPane.addTab("Enseignants", jPanelEnseigants);
 
@@ -226,9 +226,7 @@ public class VueProviseur extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane)
-                .addContainerGap())
+            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

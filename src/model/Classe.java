@@ -34,9 +34,9 @@ public class Classe {
             professeurPrincipal = e;
     }
     
-    public void addEleve(String nom, String prenom)
+    public boolean addEleve(String nom, String prenom)
     {
-         eleves.add(new Eleve(nom, prenom));
+         return eleves.add(new Eleve(nom, prenom));
     }
     
     public String toString()

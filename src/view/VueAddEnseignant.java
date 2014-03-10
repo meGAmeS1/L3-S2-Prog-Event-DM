@@ -25,6 +25,9 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         super(parent, true);
         this.ce = ce;
         initComponents();
+        
+        getRootPane().setDefaultButton(jButtonAdd);
+        
         setLocationRelativeTo(parent);
     }
 

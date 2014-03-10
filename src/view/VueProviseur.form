@@ -44,6 +44,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAddEleve">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Meta+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ajouter un &#xe9;l&#xe8;ve"/>
               </Properties>
               <Events>
@@ -67,6 +70,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAddEnseignant">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Meta+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ajouter un enseignant"/>
               </Properties>
               <Events>
@@ -75,7 +81,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDelEnseignant">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Supprimer un enseignant"/>
+                <Property name="text" type="java.lang.String" value="Supprimer cet enseignant"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDelEnseignantActionPerformed"/>

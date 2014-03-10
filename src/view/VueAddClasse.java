@@ -26,6 +26,7 @@ public class VueAddClasse extends javax.swing.JDialog {
         this.ce = ce;
         initComponents();
         
+        getRootPane().setDefaultButton(JBAdd);
         
         this.jLabelNumero.setText(" " + getNumero());
         setLocationRelativeTo(parent);
@@ -42,27 +43,27 @@ public class VueAddClasse extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBCancel = new javax.swing.JButton();
+        JBAdd = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelNumero = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jCBNiveau = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajout d'une classe");
 
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBCancel.setText("Annuler");
+        jBCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBCancelActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(jBCancel);
 
-        jButton2.setText("Ajouter");
-        jPanel2.add(jButton2);
+        JBAdd.setText("Ajouter");
+        jPanel2.add(JBAdd);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -87,10 +88,10 @@ public class VueAddClasse extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanel1.add(jLabelNumero, gridBagConstraints);
 
-        jComboBox1.setModel(new DefaultComboBoxModel(Niveau.values()));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jCBNiveau.setModel(new DefaultComboBoxModel(Niveau.values()));
+        jCBNiveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jCBNiveauActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -98,7 +99,7 @@ public class VueAddClasse extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(jCBNiveau, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,16 +123,16 @@ public class VueAddClasse extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBCancelActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
         this.jLabelNumero.setText(" " + getNumero());
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jCBNiveauActionPerformed
     
     private int getNumero() {
-        Niveau n = (Niveau) this.jComboBox1.getSelectedItem();
+        Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
         int num = 1;
         
         for(Classe c : ce.getEtablissement().getClasses()) {
@@ -143,9 +144,9 @@ public class VueAddClasse extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton JBAdd;
+    private javax.swing.JButton jBCancel;
+    private javax.swing.JComboBox jCBNiveau;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelNumero;

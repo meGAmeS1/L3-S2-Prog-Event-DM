@@ -42,4 +42,14 @@ public class Etablissement {
     public boolean addClasse(Classe c) {
         return this.classes.add(c);
     }
+    
+    public Classe getClasse(Niveau niv, int num) {
+        for(Classe c : this.classes) {
+            if(c.getNiveau().equals(niv) && c.getNumero() == num) {
+                return c;
+            }
+        }
+        
+        return null;
+    }
 }

@@ -15,6 +15,7 @@ import model.Etablissement;
 import model.Matiere;
 import model.Niveau;
 import model.Proviseur;
+import view.VueAddEleve;
 import view.VueAddEnseignant;
 import view.VueLogin;
 import view.VueProviseur;
@@ -25,7 +26,8 @@ import view.VueProviseur;
  */
 public class ControllerEtablissement {
 
-    Etablissement etablissement;
+    private Etablissement etablissement;
+    private VueProviseur vp;
 
     public ControllerEtablissement() {
         this.etablissement = new Etablissement(new Proviseur("test", "test", "test", "test"));
@@ -56,7 +58,8 @@ public class ControllerEtablissement {
 
     public void demarrerControllerEtablissement() {
 //        new VueLogin(this).setVisible(true);
-        new VueProviseur(this).setVisible(true);
+        vp = new VueProviseur(this);
+        vp.setVisible(true);
     }
 
     public void quitLogin(VueLogin vl) {
@@ -76,7 +79,9 @@ public class ControllerEtablissement {
 
         if (etablissement.getProviseur().getLogin().equals(login) && etablissement.getProviseur().getPassword().equals(pass)) {
             vl.dispose();
-            new VueProviseur(this).setVisible(true);
+            // Affichage fenêtre proviseur
+            vp = new VueProviseur(this);
+            vp.setVisible(true);
 
         } else {
             Enseignant ens = null;
@@ -89,13 +94,14 @@ public class ControllerEtablissement {
 
             if (ens != null) {
                 vl.dispose();
+                // Affichage fenêtre enseignant
             } else {
                 JOptionPane.showMessageDialog(vl, "La combinaison login/mot de passe est érronée", "Connexion impossible", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
 
-    public void deleteEnseignants(List<Enseignant> le, VueProviseur vp) {
+    public void deleteEnseignants(List<Enseignant> le) {
         if (le.size() != 0) {
             int reponse = JOptionPane.showConfirmDialog(
                     vp,
@@ -114,13 +120,13 @@ public class ControllerEtablissement {
                 }
                 
                 if(assigned) {
-                    JOptionPane.showMessageDialog(vp, "Aucun élément n'a été supprimé car certains enseignants sont affectés à une classe","Suppression impossible",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this.vp, "Aucun élément n'a été supprimé car certains enseignants sont affectés à une classe","Suppression impossible",JOptionPane.WARNING_MESSAGE);
                 } else {
                     this.etablissement.getEnseignants().removeAll(le);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(vp, "Aucun élément sélectionné","Suppression impossible",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this.vp, "Aucun élément sélectionné","Suppression impossible",JOptionPane.WARNING_MESSAGE);
 
         }
     }
@@ -141,6 +147,21 @@ public class ControllerEtablissement {
         
         if (this.etablissement.addEnseignant(e)) {
             JOptionPane.showMessageDialog(vae, "L'enseignant a bien été ajouté","Ajout éffectué",JOptionPane.INFORMATION_MESSAGE);
+            vae.dispose();
+        } else {
+            JOptionPane.showMessageDialog(vae, "Erreur lors de l'ajout","Ajout impossible",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void addEleve(VueAddEleve vae, String nom, String prenom, Niveau niveau, int numero) {
+        if(nom.isEmpty() || prenom.isEmpty()) {
+            JOptionPane.showMessageDialog(vae, "Tous les champs sont obligatoires","Ajout impossible",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if(this.etablissement.getClasse(niveau, numero).addEleve(nom, prenom)) {
+            JOptionPane.showMessageDialog(vae, "L'élève a bien été ajouté","Ajout éffectué",JOptionPane.INFORMATION_MESSAGE);
+            vp.refreshClasseInfos();
             vae.dispose();
         } else {
             JOptionPane.showMessageDialog(vae, "Erreur lors de l'ajout","Ajout impossible",JOptionPane.ERROR_MESSAGE);

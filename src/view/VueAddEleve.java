@@ -17,7 +17,7 @@ import model.Niveau;
  */
 public class VueAddEleve extends javax.swing.JDialog {
 
-    private DefaultComboBoxModel listeNiveau;
+    private DefaultComboBoxModel listeNumero, listeNiveau;
     private ControllerEtablissement ce;
 
     /**
@@ -27,19 +27,36 @@ public class VueAddEleve extends javax.swing.JDialog {
         super(parent, true);
         this.ce = ce;
         this.listeNiveau = new DefaultComboBoxModel();
+        this.listeNumero = new DefaultComboBoxModel();
         
         initComponents();
+        this.fillJCBNiveau();
         this.fillJCBNumero();
+        
+        getRootPane().setDefaultButton(jButtonAdd);
         
         setLocationRelativeTo(parent);
     }
     
+    private void fillJCBNiveau() {
+        this.listeNiveau.removeAllElements();
+        Classe cPrev = null;
+        for(Classe cCurr : ce.getEtablissement().getClasses()) {
+            if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
+                this.listeNiveau.addElement(cCurr.getNiveau());
+            }
+            
+            cPrev = cCurr;
+        }
+    }
+    
     private void fillJCBNumero() {
+        this.listeNumero.removeAllElements();
         Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
 
         for(Classe c : ce.getEtablissement().getClasses()) {
             if (c.getNiveau().compareTo(n) == 0)
-                this.listeNiveau.addElement(c.getNiveau());
+                this.listeNumero.addElement(c.getNumero());
         }
     }
     /**
@@ -61,8 +78,8 @@ public class VueAddEleve extends javax.swing.JDialog {
         jCBNiveau = new javax.swing.JComboBox();
         jCBNumero = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajout d'un élève");
@@ -104,7 +121,7 @@ public class VueAddEleve extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jCBNiveau.setModel(new DefaultComboBoxModel(Niveau.values()));
+        jCBNiveau.setModel(this.listeNiveau);
         jCBNiveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBNiveauActionPerformed(evt);
@@ -117,7 +134,7 @@ public class VueAddEleve extends javax.swing.JDialog {
         gridBagConstraints.weightx = 0.5;
         jPanel1.add(jCBNiveau, gridBagConstraints);
 
-        jCBNumero.setModel(this.listeNiveau);
+        jCBNumero.setModel(this.listeNumero);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -125,16 +142,21 @@ public class VueAddEleve extends javax.swing.JDialog {
         gridBagConstraints.weightx = 0.5;
         jPanel1.add(jCBNumero, gridBagConstraints);
 
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancel.setText("Annuler");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCancelActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(jButtonCancel);
 
-        jButton2.setText("Ajouter");
-        jPanel2.add(jButton2);
+        jButtonAdd.setText("Ajouter");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonAdd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,18 +182,23 @@ public class VueAddEleve extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
         this.fillJCBNumero();
     }//GEN-LAST:event_jCBNiveauActionPerformed
 
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        this.ce.addEleve(this, jTFNom.getText(), jTFPrenom.getText(),
+                (Niveau) jCBNiveau.getSelectedItem(), (int) jCBNumero.getSelectedItem());
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JComboBox jCBNiveau;
     private javax.swing.JComboBox jCBNumero;
     private javax.swing.JLabel jLabel1;

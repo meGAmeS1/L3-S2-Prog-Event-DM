@@ -182,6 +182,7 @@ public class VueProviseur extends javax.swing.JFrame {
         });
         jMenuClasse.add(jMenuItemAddClasse);
 
+        jMenuItemAddEleve.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.META_MASK));
         jMenuItemAddEleve.setText("Ajouter un élève");
         jMenuItemAddEleve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +203,7 @@ public class VueProviseur extends javax.swing.JFrame {
 
         jMenuEnseignants.setText("Enseignants");
 
+        jMenuItemAddEnseignant.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.META_MASK));
         jMenuItemAddEnseignant.setText("Ajouter un enseignant");
         jMenuItemAddEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +212,7 @@ public class VueProviseur extends javax.swing.JFrame {
         });
         jMenuEnseignants.add(jMenuItemAddEnseignant);
 
-        jMenuItemDelEnseignant.setText("Supprimer un enseignant");
+        jMenuItemDelEnseignant.setText("Supprimer cet enseignant");
         jMenuItemDelEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDelEnseignantActionPerformed(evt);
@@ -385,7 +387,7 @@ public class VueProviseur extends javax.swing.JFrame {
         }
 
 //        this.ce.getEtablissement().getEnseignants().removeAll(le);
-        this.ce.deleteEnseignants(le, this);
+        this.ce.deleteEnseignants(le);
         this.tableEnseignants.refresh();
     }
 

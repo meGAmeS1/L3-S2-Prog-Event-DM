@@ -36,9 +36,8 @@ public class VueProviseur extends javax.swing.JFrame {
         this.listeEnseignants = new DefaultListModel();
         initComponents();
         
-        
-            this.jPanel1.setVisible(false);
-            this.jPanel2.setVisible(false);
+        this.jPanel1.setVisible(false);
+        this.jPanel2.setVisible(false);
     }
 
     /**
@@ -234,55 +233,15 @@ public class VueProviseur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
-        if (node != null && node.isLeaf()) {
-            // Récupération de la classe
-            Object nodeInfo = node.getUserObject();
-            Classe classe = (Classe) nodeInfo;
-
-            // Effacement des listes
-            this.listeEleves.clear();
-            this.listeEnseignants.clear();
-
-            // Remplissage de la liste des élèves
-            for (Eleve e : classe.getEleves()) {
-                this.listeEleves.addElement(e.getPrenom() + " " + e.getNom());
-            }
-
-            // Remplissage de la liste des enseignants
-            for (Enseignant e : classe.getEnseignants()) {
-                // S'agissant d'un tableau il faut ignorer les éléments
-                // manquants au cas où
-                if (e == null) {
-                    continue;
-                }
-
-                String text = e.getNom() + " (" + e.getMatiere().getName() + ")";
-
-                // Ajout du gras pour le professeur principal
-                if (e.equals(classe.getProfesseurPrincipal())) {
-                    text = "<html><b>" + text + "</b></html>";
-                }
-
-                this.listeEnseignants.addElement(text);
-            }
-
-            // Affichage des listes
-            this.jPanel1.setVisible(true);
-            this.jPanel2.setVisible(true);
-
-        } else {
-            this.jPanel1.setVisible(false);
-            this.jPanel2.setVisible(false);
-        }
+        this.refreshClasseInfos();
     }//GEN-LAST:event_jTree1ValueChanged
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+        new VueAddClasse(this, this.ce).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        new VueAffectEnseignant(this, this.ce).setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -337,7 +296,7 @@ public class VueProviseur extends javax.swing.JFrame {
     }
 
     private TableModel getTableEnseignants() {
-        return new MyTableModel(this.ce.getEtablissement().getEnseignants());
+        return new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -371,15 +330,61 @@ public class VueProviseur extends javax.swing.JFrame {
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 
+    public void refreshClasseInfos() {
+DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPathComponent();
+        if (node != null && node.isLeaf()) {
+            // Récupération de la classe
+            Object nodeInfo = node.getUserObject();
+            Classe classe = (Classe) nodeInfo;
+
+            // Effacement des listes
+            this.listeEleves.clear();
+            this.listeEnseignants.clear();
+
+            // Remplissage de la liste des élèves
+            for (Eleve e : classe.getEleves()) {
+                this.listeEleves.addElement(e.getPrenom() + " " + e.getNom());
+            }
+
+            // Remplissage de la liste des enseignants
+            for (Enseignant e : classe.getEnseignants()) {
+                // S'agissant d'un tableau il faut ignorer les éléments
+                // manquants au cas où
+                if (e == null) {
+                    continue;
+                }
+
+                String text = e.getNom() + " (" + e.getMatiere().getName() + ")";
+
+                // Ajout du gras pour le professeur principal
+                if (e.equals(classe.getProfesseurPrincipal())) {
+                    text = "<html><b>" + text + "</b></html>";
+                }
+
+                this.listeEnseignants.addElement(text);
+            }
+
+            // Affichage des listes
+            this.jPanel1.setVisible(true);
+            this.jPanel2.setVisible(true);
+
+        } else {
+            this.jPanel1.setVisible(false);
+            this.jPanel2.setVisible(false);
+        }
+    }
+
     
     class MyTableModel extends AbstractTableModel {
+        private VueProviseur vp;
         private Object[] enseignants;
         private String[] columnNames = {"Nom","Prénom","Matière"};
         private Object[][] data;
         
-        public MyTableModel(TreeSet<Enseignant> enseignants) {
+        public MyTableModel(TreeSet<Enseignant> enseignants, VueProviseur vp) {
             this.data = new Object[enseignants.size()][3];
             this.enseignants = enseignants.toArray();
+            this.vp = vp;
             
             int i = 0;
             for(Enseignant e : enseignants) {
@@ -449,6 +454,8 @@ public class VueProviseur extends javax.swing.JFrame {
                     if(value instanceof String) e.setPrenom((String) value);
                     break;
             }
+            
+            this.vp.refreshClasseInfos();
         }
 
     }

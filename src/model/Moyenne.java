@@ -36,4 +36,10 @@ public class Moyenne {
             return "";
         return String.valueOf(note);
     }
+
+    public void setNote(float note) {
+        this.note = note;
+    }
+    
+    
 }

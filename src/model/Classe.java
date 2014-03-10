@@ -73,5 +73,9 @@ public class Classe {
         return professeurPrincipal;
     }
     
+    public boolean isMember(Enseignant e) {
+        return e.equals(enseignants[e.getMatiere().ordinal()]);
+    }
+    
     
 }

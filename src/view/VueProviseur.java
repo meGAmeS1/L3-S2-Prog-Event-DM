@@ -36,9 +36,9 @@ public class VueProviseur extends javax.swing.JFrame {
         this.listeEleves = new DefaultListModel();
         this.listeEnseignants = new DefaultListModel();
         this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
-        
+
         initComponents();
-        
+
         setLocationRelativeTo(null);
         this.jPanelListeEleves.setVisible(false);
         this.jPanelListeEnseigants.setVisible(false);
@@ -238,12 +238,12 @@ public class VueProviseur extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -287,13 +287,13 @@ public class VueProviseur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDelEnseignantActionPerformed
 
     private void jMenuItemDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDisconnectActionPerformed
-        this.ce.disconnect();
+        this.ce.disconnect(this);
     }//GEN-LAST:event_jMenuItemDisconnectActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.ce.quitApp(this);
     }//GEN-LAST:event_formWindowClosing
-    
+
     private TreeModel getTreeClasses() {
         // Racine de l'arbre
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Root");
@@ -356,9 +356,15 @@ public class VueProviseur extends javax.swing.JFrame {
 
     public void refreshClasseInfos() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTreeClasses.getLastSelectedPathComponent();
-        if (node != null && node.isLeaf()) {
+        if (node != null) {
             // Récupération de la classe
             Object nodeInfo = node.getUserObject();
+            if (!(nodeInfo instanceof Classe)) {
+                this.jPanelListeEleves.setVisible(false);
+                this.jPanelListeEnseigants.setVisible(false);
+                return;
+            }
+
             Classe classe = (Classe) nodeInfo;
 
             // Effacement des listes
@@ -397,11 +403,11 @@ public class VueProviseur extends javax.swing.JFrame {
             this.jPanelListeEnseigants.setVisible(false);
         }
     }
-    
+
     public void refreshTreeClasses() {
         this.jTreeClasses.setModel(getTreeClasses());
     }
-    
+
     private void deleteEnseignants() {
         List<Enseignant> le = new ArrayList<>();
         for (int i : jTableEnseignants.getSelectedRows()) {
@@ -419,7 +425,7 @@ public class VueProviseur extends javax.swing.JFrame {
     public void refreshTableEnseignants() {
         this.tableEnseignants.refresh();
     }
-    
+
     class MyTableModel extends AbstractTableModel {
 
         private VueProviseur vp;
@@ -441,18 +447,22 @@ public class VueProviseur extends javax.swing.JFrame {
 //            }
         }
 
+        @Override
         public int getColumnCount() {
             return columnNames.length;
         }
 
+        @Override
         public int getRowCount() {
             return enseignants.size();
         }
 
+        @Override
         public String getColumnName(int col) {
             return columnNames[col];
         }
 
+        @Override
         public Object getValueAt(int row, int col) {
 //            return data[row][col];
             Enseignant e = (Enseignant) enseignants.toArray()[row];
@@ -468,23 +478,13 @@ public class VueProviseur extends javax.swing.JFrame {
             }
         }
 
-        /*
-         * JTable uses this method to determine the default renderer/
-         * editor for each cell.  If we didn't implement this method,
-         * then the last column would contain text ("true"/"false"),
-         * rather than a check box.
-         */
+        @Override
         public Class getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
 
-        /*
-         * Don't need to implement this method unless your table's
-         * editable.
-         */
+        @Override
         public boolean isCellEditable(int row, int col) {
-            //Note that the data/cell address is constant,
-            //no matter where the cell appears onscreen.
             if (col < 2) {
                 return true;
             } else {
@@ -492,10 +492,7 @@ public class VueProviseur extends javax.swing.JFrame {
             }
         }
 
-        /*
-         * Don't need to implement this method unless your table's
-         * data can change.
-         */
+        @Override
         public void setValueAt(Object value, int row, int col) {
 //            data[row][col] = value;
 //            fireTableCellUpdated(row, col);

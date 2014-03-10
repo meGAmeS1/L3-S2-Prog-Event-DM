@@ -11,8 +11,8 @@ package model;
  * @author flemoal
  */
 public class Eleve extends Personne {
-    Moyenne[] listeMoyenne;
-    String commentaireGeneral;
+    private Moyenne[] listeMoyenne;
+    private String commentaireGeneral;
     
     public Eleve(String nom, String prenom) {
         super(nom, prenom);
@@ -35,4 +35,18 @@ public class Eleve extends Personne {
             return listeMoyenne[m.ordinal()].getCommentaire();
         return "";
     }
+
+    public String getCommentaireGeneral() {
+        return commentaireGeneral;
+    }
+    
+    public void setNote(Matiere m, float note) {
+        listeMoyenne[m.ordinal()].setNote(note);
+    }
+
+    public void setCommentaireGeneral(String commentaireGeneral) {
+        this.commentaireGeneral = commentaireGeneral;
+    }
+    
+    
 }

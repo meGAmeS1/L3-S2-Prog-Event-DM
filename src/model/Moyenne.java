@@ -11,8 +11,8 @@ package model;
  * @author flemoal
  */
 public class Moyenne {
-    float note;
-    String commentaire;
+    private float note;
+    private String commentaire;
     
     public Moyenne()
     {
@@ -40,6 +40,12 @@ public class Moyenne {
     public void setNote(float note) {
         this.note = note;
     }
+
+    public void setCommentaire(String commentaire) {
+        this.commentaire = commentaire;
+    }
+    
+    
     
     
 }

@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import model.Classe;
 import model.Eleve;
 import model.Enseignant;
@@ -28,6 +29,7 @@ public class VueEnseignant extends javax.swing.JFrame {
     private Enseignant enseignant;
 
     private ClasseTableModel tableClasse;
+    private MatiereTableModel tableMatiere;
 
     /**
      * Creates new form VueEnseignant
@@ -35,7 +37,8 @@ public class VueEnseignant extends javax.swing.JFrame {
     public VueEnseignant(ControllerEtablissement ce, Enseignant enseignant) {
         this.ce = ce;
         this.enseignant = enseignant;
-        this.tableClasse = new ClasseTableModel(new TreeSet<Eleve>());
+        this.tableClasse = new ClasseTableModel();
+        this.tableMatiere = new MatiereTableModel();
 
         initComponents();
         jPanelClasse.setVisible(false);
@@ -102,22 +105,12 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         jPanelMatiere.setLayout(new java.awt.BorderLayout());
 
-        jTableMatiere.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTableMatiere.setModel(this.tableMatiere);
         jScrollPane4.setViewportView(jTableMatiere);
 
         jPanelMatiere.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanelMatiere, java.awt.BorderLayout.PAGE_START);
+        jPanel1.add(jPanelMatiere, java.awt.BorderLayout.CENTER);
 
         jSplitPane1.setRightComponent(jPanel1);
 
@@ -178,23 +171,36 @@ public class VueEnseignant extends javax.swing.JFrame {
 
             if ((nodeInfo instanceof Classe)) {
                 Classe c = (Classe) nodeInfo;
-                this.tableClasse.refreshWith(c.getEleves());
+
                 this.tableClasse.setIsProfPrincipal(c.getProfesseurPrincipal().equals(enseignant));
-                
+                this.tableClasse.refreshWith(c.getEleves());
+
                 this.jPanelClasse.setVisible(true);
                 this.jPanelMatiere.setVisible(false);
+                return;
             } else if ((nodeInfo instanceof Matiere)) {
-                this.jPanelClasse.setVisible(false);
-                this.jPanelMatiere.setVisible(true);
-            } else {
-                this.jPanelClasse.setVisible(false);
-                this.jPanelMatiere.setVisible(false);
+                Matiere mat = (Matiere) nodeInfo;
+                Classe cla = null;
+                for (Classe c : ce.getEtablissement().getClasses()) {
+                    if (c.getAffichage().equals(node.getParent().toString())) {
+                        cla = c;
+                        break;
+                    }
+                }
+
+                if (cla != null) {
+                    this.tableMatiere.setIsProfOfThis(enseignant.getMatiere().equals(mat));
+                    this.tableMatiere.refreshWith(cla.getEleves(), mat);
+                    this.jPanel1.
+                    this.jPanelClasse.setVisible(false);
+                    this.jPanelMatiere.setVisible(true);
+                    return;
+                }
             }
 
-        } else {
-            jPanelClasse.setVisible(false);
-            jPanelMatiere.setVisible(false);
         }
+        jPanelClasse.setVisible(false);
+        jPanelMatiere.setVisible(false);
     }//GEN-LAST:event_jTree1ValueChanged
 
     private TreeModel getTreeClasses() {
@@ -247,8 +253,8 @@ public class VueEnseignant extends javax.swing.JFrame {
         private TreeSet<Eleve> eleves;
         private String[] columnNames;
         private boolean isProfPrincipal;
-        
-        public ClasseTableModel(TreeSet<Eleve> eleves) {
+
+        public ClasseTableModel() {
             List<String> columns = new ArrayList<>();
             columns.add("Nom");
             columns.add("Prénom");
@@ -259,7 +265,7 @@ public class VueEnseignant extends javax.swing.JFrame {
 
             columnNames = columns.toArray(new String[3 + Matiere.values().length]);
 
-            this.eleves = eleves;
+            this.eleves = new TreeSet<>();
             this.isProfPrincipal = false;
         }
 
@@ -298,12 +304,12 @@ public class VueEnseignant extends javax.swing.JFrame {
         public String getColumnName(int col) {
             return columnNames[col];
         }
-        
+
         public void refreshWith(TreeSet<Eleve> eleves) {
             this.eleves = eleves;
             fireTableDataChanged();
         }
-        
+
         @Override
         public boolean isCellEditable(int row, int col) {
             if (col == 2 + Matiere.values().length) {
@@ -316,18 +322,100 @@ public class VueEnseignant extends javax.swing.JFrame {
         public void setIsProfPrincipal(boolean isProfPrincipal) {
             this.isProfPrincipal = isProfPrincipal;
         }
-        
+
         @Override
         public void setValueAt(Object value, int row, int col) {
-            if (col != 2 + Matiere.values().length) return;
-            
+            if (col != 2 + Matiere.values().length) {
+                return;
+            }
+
             String com = (String) value;
             Eleve e = (Eleve) eleves.toArray()[row];
             e.setCommentaireGeneral(com);
         }
     }
-    
+
     class MatiereTableModel extends AbstractTableModel {
-        
+
+        private TreeSet<Eleve> eleves;
+        private Matiere mat;
+        private String[] columnNames = {"Nom", "Prénom", "Note", "Commentaire"};
+        private boolean isProfOfThis;
+
+        public MatiereTableModel() {
+            this.eleves = new TreeSet<>();
+            this.isProfOfThis = false;
+        }
+
+        @Override
+        public int getRowCount() {
+            return eleves.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return columnNames.length;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            Eleve e = (Eleve) eleves.toArray()[row];
+            switch (col) {
+                case 0:
+                    return e.getNom();
+                case 1:
+                    return e.getPrenom();
+                case 2:
+                    return e.getNote(mat);
+                case 3:
+                    return e.getCommentaire(mat);
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return columnNames[col];
+        }
+
+        public void setIsProfOfThis(boolean isProfOfThis) {
+            this.isProfOfThis = isProfOfThis;
+        }
+
+        public void refreshWith(TreeSet<Eleve> eleves, Matiere mat) {
+            this.eleves = eleves;
+            this.mat = mat;
+            fireTableDataChanged();
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            if (col == 2 || col == 3) {
+                return isProfOfThis;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            if (col == 2) {
+                Float note = (Float) value;
+                if (note < 0 || note > 20) return;
+                Eleve e = (Eleve) eleves.toArray()[row];
+                e.setNote(mat, note);
+            } else if (col == 3) {
+                String com = (String) value;
+                Eleve e = (Eleve) eleves.toArray()[row];
+                e.setCommentaire(mat, com);
+            }
+
+        }
     }
 }

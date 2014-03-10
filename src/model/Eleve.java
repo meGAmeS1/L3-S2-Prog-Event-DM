@@ -43,6 +43,10 @@ public class Eleve extends Personne {
     public void setNote(Matiere m, float note) {
         listeMoyenne[m.ordinal()].setNote(note);
     }
+    
+    public void setCommentaire(Matiere m, String com) {
+        listeMoyenne[m.ordinal()].setCommentaire(com);
+    }
 
     public void setCommentaireGeneral(String commentaireGeneral) {
         this.commentaireGeneral = commentaireGeneral;

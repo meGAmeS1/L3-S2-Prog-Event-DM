@@ -431,20 +431,10 @@ public class VueProviseur extends javax.swing.JFrame {
         private VueProviseur vp;
         private TreeSet<Enseignant> enseignants;
         private String[] columnNames = {"Nom", "Prénom", "Matière"};
-//        private Object[][] data;
 
         public MyTableModel(TreeSet<Enseignant> enseignants, VueProviseur vp) {
-//            this.data = new Object[enseignants.size()][3];
             this.enseignants = enseignants;
             this.vp = vp;
-
-//            int i = 0;
-//            for(Enseignant e : enseignants) {
-//                data[i][0] = e.getNom();
-//                data[i][1] = e.getPrenom();
-//                data[i][2] = e.getMatiere();
-//                i++;
-//            }
         }
 
         @Override
@@ -464,7 +454,6 @@ public class VueProviseur extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int row, int col) {
-//            return data[row][col];
             Enseignant e = (Enseignant) enseignants.toArray()[row];
             switch (col) {
                 case 0:
@@ -494,9 +483,6 @@ public class VueProviseur extends javax.swing.JFrame {
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-//            data[row][col] = value;
-//            fireTableCellUpdated(row, col);
-//            
             Enseignant e = (Enseignant) enseignants.toArray()[row];
             switch (col) {
                 case 0:
@@ -514,9 +500,6 @@ public class VueProviseur extends javax.swing.JFrame {
             this.vp.refreshClasseInfos();
         }
 
-//        public void removeRow(Integer row) {
-//            enseignants.remove((Enseignant) enseignants.toArray()[row]);
-//        }
         public void refresh() {
             fireTableDataChanged();
         }

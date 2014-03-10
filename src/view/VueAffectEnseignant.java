@@ -6,7 +6,12 @@
 package view;
 
 import controller.ControllerEtablissement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import model.Classe;
+import model.Enseignant;
+import model.Niveau;
 
 /**
  *
@@ -14,6 +19,8 @@ import javax.swing.JFrame;
  */
 public class VueAffectEnseignant extends javax.swing.JDialog {
 
+    private DefaultComboBoxModel listeNumero, listeNiveau;
+    private DefaultListModel listeEnseignant;
     private ControllerEtablissement ce;
 
     /**
@@ -22,10 +29,18 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
     public VueAffectEnseignant(JFrame parent, ControllerEtablissement ce) {
         super(parent, true);
         this.ce = ce;
+        this.listeNiveau = new DefaultComboBoxModel();
+        this.listeNumero = new DefaultComboBoxModel();
+        this.listeEnseignant = new DefaultListModel();
+
         initComponents();
-        
+
         getRootPane().setDefaultButton(jButtonAdd);
-        
+
+        fillJCBNiveau();
+        fillJCBNumero();
+        fillJLEnseignants();
+
         setLocationRelativeTo(parent);
     }
 
@@ -45,12 +60,12 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        jCBNiveau = new javax.swing.JComboBox();
+        jCBNumero = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jListEnseignant = new javax.swing.JList();
+        jCheckBoxPP = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Affecter un enseignant à une classe");
@@ -64,6 +79,11 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         jPanel2.add(jButtonCancel);
 
         jButtonAdd.setText("Ajouter");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonAdd);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -82,31 +102,37 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBNiveau.setModel(this.listeNiveau);
+        jCBNiveau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBNiveauActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.5;
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(jCBNiveau, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBNumero.setModel(this.listeNumero);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.5;
-        jPanel1.add(jComboBox2, gridBagConstraints);
+        jPanel1.add(jCBNumero, gridBagConstraints);
 
-        jLabel3.setText("Professeur :");
+        jLabel3.setText("Enseignant :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jList1);
+        jListEnseignant.setModel(this.listeEnseignant);
+        jListEnseignant.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(jListEnseignant);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -116,16 +142,16 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         gridBagConstraints.weighty = 1.0;
         jPanel1.add(jScrollPane1, gridBagConstraints);
 
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBoxPP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jCheckBoxPPActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanel1.add(jCheckBox1, gridBagConstraints);
+        jPanel1.add(jCheckBoxPP, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,23 +181,60 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jCheckBoxPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jCheckBoxPPActionPerformed
 
+    private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
+        fillJCBNumero();
+    }//GEN-LAST:event_jCBNiveauActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        this.ce.affectEnseignant(this, (Enseignant) jListEnseignant.getSelectedValue(), (Niveau) this.jCBNiveau.getSelectedItem(), 
+        (int) this.jCBNumero.getSelectedItem(), jCheckBoxPP.isSelected());
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void fillJCBNiveau() {
+        this.listeNiveau.removeAllElements();
+        Classe cPrev = null;
+        for (Classe cCurr : ce.getEtablissement().getClasses()) {
+            if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
+                this.listeNiveau.addElement(cCurr.getNiveau());
+            }
+
+            cPrev = cCurr;
+        }
+    }
+
+    private void fillJCBNumero() {
+        this.listeNumero.removeAllElements();
+        Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
+
+        for (Classe c : ce.getEtablissement().getClasses()) {
+            if (c.getNiveau().compareTo(n) == 0) {
+                this.listeNumero.addElement(c.getNumero());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonCancel;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jCBNiveau;
+    private javax.swing.JComboBox jCBNumero;
+    private javax.swing.JCheckBox jCheckBoxPP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList jList1;
+    private javax.swing.JList jListEnseignant;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void fillJLEnseignants() {
+        for(Enseignant e : this.ce.getEtablissement().getEnseignants()) {
+            this.listeEnseignant.addElement(e);
+        }
+    }
 }

@@ -22,6 +22,9 @@ public class VueLogin extends javax.swing.JFrame {
     public VueLogin(ControllerEtablissement ce) {
         this.ce = ce;
         initComponents();
+        
+        getRootPane().setDefaultButton(jBValider);
+        
         setLocationRelativeTo(null);
     }
 
@@ -47,6 +50,11 @@ public class VueLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Connexion à votre espace");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -137,8 +145,12 @@ public class VueLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBValiderActionPerformed
 
     private void jBQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitActionPerformed
-        this.ce.quitLogin(this);
+        this.ce.quitApp(this);
     }//GEN-LAST:event_jBQuitActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.ce.quitApp(this);
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

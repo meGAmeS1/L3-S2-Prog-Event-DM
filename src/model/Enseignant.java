@@ -21,4 +21,11 @@ public class Enseignant extends Personne {
     public Matiere getMatiere() {
         return matiere;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (" + matiere +")"; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

@@ -7,12 +7,10 @@ package view;
 
 import controller.ControllerEtablissement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -38,6 +36,7 @@ public class VueProviseur extends javax.swing.JFrame {
         this.listeEleves = new DefaultListModel();
         this.listeEnseignants = new DefaultListModel();
         this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
+        
         initComponents();
         
         setLocationRelativeTo(null);
@@ -85,6 +84,11 @@ public class VueProviseur extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Gestion de l'établissement - Proviseur");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jSplitPane1.setDividerLocation(150);
         jSplitPane1.setResizeWeight(0.1);
@@ -156,9 +160,14 @@ public class VueProviseur extends javax.swing.JFrame {
 
         jMenuFichier.setText("Fichier");
 
-        jMenuItemDisconnect.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.META_MASK));
+        jMenuItemDisconnect.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.META_MASK));
         jMenuItemDisconnect.setText("Déconnexion");
         jMenuItemDisconnect.setToolTipText("");
+        jMenuItemDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDisconnectActionPerformed(evt);
+            }
+        });
         jMenuFichier.add(jMenuItemDisconnect);
 
         jMenuItemQuit.setText("Quitter");
@@ -212,6 +221,7 @@ public class VueProviseur extends javax.swing.JFrame {
         });
         jMenuEnseignants.add(jMenuItemAddEnseignant);
 
+        jMenuItemDelEnseignant.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         jMenuItemDelEnseignant.setText("Supprimer cet enseignant");
         jMenuItemDelEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +263,7 @@ public class VueProviseur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemAffecterEActionPerformed
 
     private void jMenuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitActionPerformed
-        // TODO add your handling code here:
+        this.ce.quitApp(this);
     }//GEN-LAST:event_jMenuItemQuitActionPerformed
 
     private void jButtonDeleteEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteEnseignantActionPerformed
@@ -275,6 +285,14 @@ public class VueProviseur extends javax.swing.JFrame {
     private void jMenuItemDelEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDelEnseignantActionPerformed
         this.deleteEnseignants();
     }//GEN-LAST:event_jMenuItemDelEnseignantActionPerformed
+
+    private void jMenuItemDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDisconnectActionPerformed
+        this.ce.disconnect();
+    }//GEN-LAST:event_jMenuItemDisconnectActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.ce.quitApp(this);
+    }//GEN-LAST:event_formWindowClosing
     
     private TreeModel getTreeClasses() {
         // Racine de l'arbre
@@ -349,7 +367,7 @@ public class VueProviseur extends javax.swing.JFrame {
 
             // Remplissage de la liste des élèves
             for (Eleve e : classe.getEleves()) {
-                this.listeEleves.addElement(e.getPrenom() + " " + e.getNom());
+                this.listeEleves.addElement(e.toString());
             }
 
             // Remplissage de la liste des enseignants
@@ -360,7 +378,7 @@ public class VueProviseur extends javax.swing.JFrame {
                     continue;
                 }
 
-                String text = e.getNom() + " (" + e.getMatiere().getName() + ")";
+                String text = e.toString();
 
                 // Ajout du gras pour le professeur principal
                 if (e.equals(classe.getProfesseurPrincipal())) {
@@ -379,7 +397,11 @@ public class VueProviseur extends javax.swing.JFrame {
             this.jPanelListeEnseigants.setVisible(false);
         }
     }
-
+    
+    public void refreshTreeClasses() {
+        this.jTreeClasses.setModel(getTreeClasses());
+    }
+    
     private void deleteEnseignants() {
         List<Enseignant> le = new ArrayList<>();
         for (int i : jTableEnseignants.getSelectedRows()) {
@@ -388,11 +410,13 @@ public class VueProviseur extends javax.swing.JFrame {
 
 //        this.ce.getEtablissement().getEnseignants().removeAll(le);
         this.ce.deleteEnseignants(le);
-        this.tableEnseignants.refresh();
     }
 
     private void addEnseignant() {
         new VueAddEnseignant(this, this.ce).setVisible(true);
+    }
+
+    public void refreshTableEnseignants() {
         this.tableEnseignants.refresh();
     }
     

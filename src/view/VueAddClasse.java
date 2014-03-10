@@ -63,6 +63,11 @@ public class VueAddClasse extends javax.swing.JDialog {
         jPanel2.add(jBCancel);
 
         JBAdd.setText("Ajouter");
+        JBAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBAddActionPerformed(evt);
+            }
+        });
         jPanel2.add(JBAdd);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -130,6 +135,10 @@ public class VueAddClasse extends javax.swing.JDialog {
     private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
         this.jLabelNumero.setText(" " + getNumero());
     }//GEN-LAST:event_jCBNiveauActionPerformed
+
+    private void JBAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddActionPerformed
+        this.ce.addClasse(this, (Niveau) this.jCBNiveau.getSelectedItem(), getNumero());
+    }//GEN-LAST:event_JBAddActionPerformed
     
     private int getNumero() {
         Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();

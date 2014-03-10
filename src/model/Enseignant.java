@@ -20,5 +20,5 @@ public class Enseignant extends Personne {
 
     public Matiere getMatiere() {
         return matiere;
-    }   
+    }
 }

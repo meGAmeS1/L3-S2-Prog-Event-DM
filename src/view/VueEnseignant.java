@@ -6,6 +6,7 @@
 package view;
 
 import controller.ControllerEtablissement;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -39,10 +40,10 @@ public class VueEnseignant extends javax.swing.JFrame {
         this.enseignant = enseignant;
         this.tableClasse = new ClasseTableModel();
         this.tableMatiere = new MatiereTableModel();
-
         initComponents();
-        jPanelClasse.setVisible(false);
-        jPanelMatiere.setVisible(false);
+        
+        this.jPanelClasse.setVisible(false);
+        this.jPanelMatiere.setVisible(false);
         setLocationRelativeTo(null);
     }
 
@@ -55,20 +56,34 @@ public class VueEnseignant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jPanel1 = new javax.swing.JPanel();
         jPanelClasse = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableClasse = new javax.swing.JTable();
         jPanelMatiere = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableMatiere = new javax.swing.JTable();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFichier = new javax.swing.JMenu();
         jMenuItemDisconnect = new javax.swing.JMenuItem();
         jMenuItemQuit = new javax.swing.JMenuItem();
+
+        jPanelClasse.setLayout(new java.awt.BorderLayout());
+
+        jTableClasse.setModel(this.tableClasse);
+        jScrollPane2.setViewportView(jTableClasse);
+
+        jPanelClasse.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanelMatiere.setLayout(new java.awt.BorderLayout());
+
+        jTableMatiere.setModel(this.tableMatiere);
+        jScrollPane4.setViewportView(jTableMatiere);
+
+        jPanelMatiere.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -93,25 +108,6 @@ public class VueEnseignant extends javax.swing.JFrame {
         jSplitPane1.setLeftComponent(jScrollPane1);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanelClasse.setLayout(new java.awt.BorderLayout());
-
-        jTableClasse.setModel(this.tableClasse);
-        jScrollPane2.setViewportView(jTableClasse);
-
-        jPanelClasse.add(jScrollPane2, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanelClasse, java.awt.BorderLayout.CENTER);
-
-        jPanelMatiere.setLayout(new java.awt.BorderLayout());
-
-        jTableMatiere.setModel(this.tableMatiere);
-        jScrollPane4.setViewportView(jTableMatiere);
-
-        jPanelMatiere.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-
-        jPanel1.add(jPanelMatiere, java.awt.BorderLayout.CENTER);
-
         jSplitPane1.setRightComponent(jPanel1);
 
         jMenuFichier.setText("Fichier");
@@ -174,7 +170,10 @@ public class VueEnseignant extends javax.swing.JFrame {
 
                 this.tableClasse.setIsProfPrincipal(c.getProfesseurPrincipal().equals(enseignant));
                 this.tableClasse.refreshWith(c.getEleves());
-
+                
+                this.jPanel1.removeAll();
+                this.jPanel1.add(jPanelClasse, BorderLayout.CENTER);
+                
                 this.jPanelClasse.setVisible(true);
                 this.jPanelMatiere.setVisible(false);
                 return;
@@ -191,7 +190,10 @@ public class VueEnseignant extends javax.swing.JFrame {
                 if (cla != null) {
                     this.tableMatiere.setIsProfOfThis(enseignant.getMatiere().equals(mat));
                     this.tableMatiere.refreshWith(cla.getEleves(), mat);
-                    this.jPanel1.
+                    
+                    this.jPanel1.removeAll();
+                    this.jPanel1.add(jPanelMatiere, BorderLayout.CENTER);
+                    
                     this.jPanelClasse.setVisible(false);
                     this.jPanelMatiere.setVisible(true);
                     return;
@@ -199,8 +201,7 @@ public class VueEnseignant extends javax.swing.JFrame {
             }
 
         }
-        jPanelClasse.setVisible(false);
-        jPanelMatiere.setVisible(false);
+        this.jPanel1.removeAll();
     }//GEN-LAST:event_jTree1ValueChanged
 
     private TreeModel getTreeClasses() {

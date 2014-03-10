@@ -291,7 +291,7 @@ public class VueProviseur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDisconnectActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.ce.quitApp(this);
+        this.ce.disconnect(this);
     }//GEN-LAST:event_formWindowClosing
 
     private TreeModel getTreeClasses() {
@@ -474,11 +474,12 @@ public class VueProviseur extends javax.swing.JFrame {
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            if (col < 2) {
-                return true;
-            } else {
-                return false;
-            }
+//            if (col < 2) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+            return col < 2;
         }
 
         @Override

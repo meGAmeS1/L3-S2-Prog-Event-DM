@@ -6,7 +6,9 @@
 package view;
 
 import controller.ControllerEtablissement;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
 import javax.swing.table.AbstractTableModel;
@@ -26,6 +28,7 @@ public class VueProviseur extends javax.swing.JFrame {
 
     private ControllerEtablissement ce;
     private DefaultListModel listeEleves, listeEnseignants;
+    private MyTableModel tableEnseignants;
 
     /**
      * Creates new form VueProviseur
@@ -34,6 +37,7 @@ public class VueProviseur extends javax.swing.JFrame {
         this.ce = ce;
         this.listeEleves = new DefaultListModel();
         this.listeEnseignants = new DefaultListModel();
+        this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
         initComponents();
         
         this.jPanel1.setVisible(false);
@@ -123,13 +127,12 @@ public class VueProviseur extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(getTableEnseignants());
+        jTable1.setModel(this.tableEnseignants);
         jScrollPane2.setViewportView(jTable1);
 
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jButtonDeleteEnseignant.setText("Supprimer");
-        jButtonDeleteEnseignant.setEnabled(false);
         jButtonDeleteEnseignant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteEnseignantActionPerformed(evt);
@@ -249,7 +252,13 @@ public class VueProviseur extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButtonDeleteEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteEnseignantActionPerformed
-        // TODO add your handling code here:
+        List<Enseignant> le = new ArrayList<>();
+        for(int i : jTable1.getSelectedRows()) {
+            le.add((Enseignant) this.ce.getEtablissement().getEnseignants().toArray()[i]);
+        }
+        
+        this.ce.getEtablissement().getEnseignants().removeAll(le);
+        this.tableEnseignants.refresh();
     }//GEN-LAST:event_jButtonDeleteEnseignantActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -265,15 +274,14 @@ public class VueProviseur extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddEnseignantActionPerformed
 
     private TreeModel getTreeClasses() {
+        // Racine de l'arbre
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Root");
-
-        Iterator iter = this.ce.getEtablissement().getClasses().iterator();
+        
         Classe cPrev = null;
         DefaultMutableTreeNode nodeClasse = null;
-
-        while (iter.hasNext()) {
-            Classe cCurr = (Classe) iter.next();
-
+        
+        // Parcours de toutes les classes de l'établissement
+        for(Classe cCurr : this.ce.getEtablissement().getClasses()) {
             // Si on entre dans un nouveau niveau de classe alors faire
             // un nouveau niveau et inscrire l'ancien dans la racine
             if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
@@ -285,7 +293,6 @@ public class VueProviseur extends javax.swing.JFrame {
             }
             cPrev = cCurr;
             nodeClasse.add(new DefaultMutableTreeNode(cCurr));
-
         }
 
         if (nodeClasse != null) {
@@ -293,10 +300,6 @@ public class VueProviseur extends javax.swing.JFrame {
         }
 
         return new DefaultTreeModel(treeRoot);
-    }
-
-    private TableModel getTableEnseignants() {
-        return new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -377,22 +380,22 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
     
     class MyTableModel extends AbstractTableModel {
         private VueProviseur vp;
-        private Object[] enseignants;
+        private TreeSet<Enseignant> enseignants;
         private String[] columnNames = {"Nom","Prénom","Matière"};
-        private Object[][] data;
+//        private Object[][] data;
         
         public MyTableModel(TreeSet<Enseignant> enseignants, VueProviseur vp) {
-            this.data = new Object[enseignants.size()][3];
-            this.enseignants = enseignants.toArray();
+//            this.data = new Object[enseignants.size()][3];
+            this.enseignants = enseignants;
             this.vp = vp;
             
-            int i = 0;
-            for(Enseignant e : enseignants) {
-                data[i][0] = e.getNom();
-                data[i][1] = e.getPrenom();
-                data[i][2] = e.getMatiere();
-                i++;
-            }
+//            int i = 0;
+//            for(Enseignant e : enseignants) {
+//                data[i][0] = e.getNom();
+//                data[i][1] = e.getPrenom();
+//                data[i][2] = e.getMatiere();
+//                i++;
+//            }
         }
 
         
@@ -402,7 +405,7 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
         }
 
         public int getRowCount() {
-            return data.length;
+            return enseignants.size();
         }
 
         public String getColumnName(int col) {
@@ -410,7 +413,18 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
         }
 
         public Object getValueAt(int row, int col) {
-            return data[row][col];
+//            return data[row][col];
+            Enseignant e = (Enseignant) enseignants.toArray()[row];
+            switch(col) {
+                case 0:
+                    return e.getNom();
+                case 1:
+                    return e.getPrenom();
+                case 2:
+                    return e.getMatiere();
+                default:
+                    return null;
+            }
         }
 
         /*
@@ -442,11 +456,11 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
          * data can change.
          */
         public void setValueAt(Object value, int row, int col) {
-            data[row][col] = value;
-            fireTableCellUpdated(row, col);
-            
-            Enseignant e = (Enseignant) enseignants[row];
-            switch(row) {
+//            data[row][col] = value;
+//            fireTableCellUpdated(row, col);
+//            
+            Enseignant e = (Enseignant) enseignants.toArray()[row];
+            switch(col) {
                 case 0:
                     if(value instanceof String) e.setNom((String) value);
                     break;
@@ -457,6 +471,13 @@ DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree1.getLastSelectedPat
             
             this.vp.refreshClasseInfos();
         }
-
+        
+//        public void removeRow(Integer row) {
+//            enseignants.remove((Enseignant) enseignants.toArray()[row]);
+//        }
+        
+        public void refresh() {
+            fireTableDataChanged();
+        }
     }
 }

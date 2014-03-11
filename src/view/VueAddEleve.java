@@ -28,37 +28,39 @@ public class VueAddEleve extends javax.swing.JDialog {
         this.ce = ce;
         this.listeNiveau = new DefaultComboBoxModel();
         this.listeNumero = new DefaultComboBoxModel();
-        
+
         initComponents();
         this.fillJCBNiveau();
         this.fillJCBNumero();
-        
+
         getRootPane().setDefaultButton(jButtonAdd);
-        
+
         setLocationRelativeTo(parent);
     }
-    
+
     private void fillJCBNiveau() {
         this.listeNiveau.removeAllElements();
         Classe cPrev = null;
-        for(Classe cCurr : ce.getEtablissement().getClasses()) {
+        for (Classe cCurr : ce.getEtablissement().getClasses()) {
             if (cPrev == null || cCurr.getNiveau() != cPrev.getNiveau()) {
                 this.listeNiveau.addElement(cCurr.getNiveau());
             }
-            
+
             cPrev = cCurr;
         }
     }
-    
+
     private void fillJCBNumero() {
         this.listeNumero.removeAllElements();
         Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
 
-        for(Classe c : ce.getEtablissement().getClasses()) {
-            if (c.getNiveau().compareTo(n) == 0)
+        for (Classe c : ce.getEtablissement().getClasses()) {
+            if (c.getNiveau().compareTo(n) == 0) {
                 this.listeNumero.addElement(c.getNumero());
+            }
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

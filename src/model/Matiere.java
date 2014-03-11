@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
@@ -11,6 +10,7 @@ package model;
  * @author flemoal
  */
 public enum Matiere {
+
     ANGLAIS("Anglais"),
     EPS("EPS"),
     FRANCAIS("Français"),
@@ -18,21 +18,18 @@ public enum Matiere {
     MATHS("Maths"),
     PHYSIQUE("Physique"),
     SVT("SVT");
-    
+
     private String name;
-    
-    Matiere(String name)
-    {
+
+    Matiere(String name) {
         this.name = name;
     }
-    
-    public String getName()
-    {
+
+    public String getName() {
         return name;
-    } 
-    
-    public String toString()
-    {
+    }
+
+    public String toString() {
         return name;
     }
 }

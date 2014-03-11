@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.util.TreeSet;
@@ -13,39 +12,36 @@ import java.util.TreeSet;
  * @author flemoal
  */
 public class Classe {
+
     private Niveau niveau;
     private int numero;
     private TreeSet<Eleve> eleves;
     private Enseignant[] enseignants;
     private Enseignant professeurPrincipal;
-    
-    public Classe(Niveau niveau, int numero)
-    {
+
+    public Classe(Niveau niveau, int numero) {
         enseignants = new Enseignant[Matiere.values().length];
         eleves = new TreeSet<Eleve>(new EleveComparator());
         this.niveau = niveau;
         this.numero = numero;
     }
-    
-    public void addEnseignant(Enseignant e, boolean principal)
-    {
+
+    public void addEnseignant(Enseignant e, boolean principal) {
         enseignants[e.getMatiere().ordinal()] = e;
-        if(principal)
+        if (principal) {
             professeurPrincipal = e;
+        }
     }
-    
-    public boolean addEleve(String nom, String prenom)
-    {
-         return eleves.add(new Eleve(nom, prenom));
+
+    public boolean addEleve(String nom, String prenom) {
+        return eleves.add(new Eleve(nom, prenom));
     }
-    
-    public String toString()
-    {
+
+    public String toString() {
         return niveau.getAffichage() + numero;
     }
-    
-    public int getNombreEleves()
-    {
+
+    public int getNombreEleves() {
         return eleves.size();
     }
 
@@ -56,7 +52,7 @@ public class Classe {
     public int getNumero() {
         return numero;
     }
-    
+
     public String getAffichage() {
         return niveau.getAffichage() + numero;
     }
@@ -72,10 +68,9 @@ public class Classe {
     public Enseignant getProfesseurPrincipal() {
         return professeurPrincipal;
     }
-    
+
     public boolean isMember(Enseignant e) {
         return e.equals(enseignants[e.getMatiere().ordinal()]);
     }
-    
-    
+
 }

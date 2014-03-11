@@ -25,9 +25,9 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         super(parent, true);
         this.ce = ce;
         initComponents();
-        
+
         getRootPane().setDefaultButton(jButtonAdd);
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -70,12 +70,6 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(jLabel1, gridBagConstraints);
-
-        jTFNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFNomActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -194,12 +188,8 @@ public class VueAddEnseignant extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jTFNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTFNomActionPerformed
-
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-       this.ce.addEnseignant(this, jTFNom.getText(), jTFPrenom.getText(),
+        this.ce.addEnseignant(this, jTFNom.getText(), jTFPrenom.getText(),
                 jTFLogin.getText(), jTFMDP1.getText(), jTFMDP2.getText(),
                 (Matiere) jCBMatiere.getSelectedItem());
     }//GEN-LAST:event_jButtonAddActionPerformed

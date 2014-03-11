@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
@@ -11,6 +10,7 @@ package model;
  * @author flemoal
  */
 public class Enseignant extends Personne {
+
     private final Matiere matiere;
 
     public Enseignant(String login, String password, String nom, String prenom, Matiere matiere) {
@@ -24,8 +24,7 @@ public class Enseignant extends Personne {
 
     @Override
     public String toString() {
-        return super.toString() + " (" + matiere +")"; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + " (" + matiere + ")"; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

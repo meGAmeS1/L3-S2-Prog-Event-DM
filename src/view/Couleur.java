@@ -18,28 +18,27 @@ public class Couleur {
     private static final Color colMoy = new Color(220, 180, 10);
     private static final Color colMax = new Color(90, 170, 50);
     private static final Color colErr = new Color(14, 47, 89, alpha);
-    
+
     private static final int moyMin = 6;
     private static final int moyMax = 14;
     private static final int noteMin = 0;
     private static final int noteMax = 20;
-    
-    
-    public static  Color getErrorColor() {
+
+    public static Color getErrorColor() {
         return colErr;
     }
-    
+
     public static Color getMoyenneColor(float moyenne) {
         float n = (moyenne < moyMin) ? moyMin : ((moyenne > moyMax) ? moyMax : moyenne);
         float bal = (n - moyMin) / (float) (moyMax - moyMin);
-        
+
         return getBlendedColor(bal);
     }
-    
+
     public static Color getNoteColor(float note) {
         float n = (note < noteMin) ? noteMin : ((note > noteMax) ? noteMax : note);
         float bal = (n - noteMin) / (float) (noteMax - noteMin);
-        
+
         return getBlendedColor(bal);
     }
 
@@ -51,7 +50,7 @@ public class Couleur {
         } else {
             col = interpolate(colMoy, colMax, (percentage - 50) / (float) 50);
         }
-        
+
         return new Color(col.getRed(), col.getGreen(), col.getBlue(), alpha);
     }
 

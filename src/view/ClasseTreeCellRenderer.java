@@ -21,7 +21,9 @@ import model.Matiere;
  * @author flemoal
  */
 public class ClasseTreeCellRenderer extends DefaultTreeCellRenderer {
-    private static final Color red = new Color(150, 35, 55);;
+
+    private static final Color red = new Color(150, 35, 55);
+    ;
     private ControllerEtablissement ce;
     private Enseignant ens;
 

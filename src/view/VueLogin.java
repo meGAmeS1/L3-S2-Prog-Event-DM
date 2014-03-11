@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.ControllerEtablissement;
@@ -14,18 +13,18 @@ import javax.swing.JFrame;
  * @author flemoal
  */
 public class VueLogin extends javax.swing.JFrame {
-    
+
     private ControllerEtablissement ce;
-    
+
     /**
      * Creates new form VueLogin
      */
     public VueLogin(ControllerEtablissement ce, JFrame parent) {
         this.ce = ce;
         initComponents();
-        
+
         getRootPane().setDefaultButton(jBValider);
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -141,7 +140,7 @@ public class VueLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBValiderActionPerformed
-        this.ce.login(this,this.jTLogin.getText(),this.jPPassword.getPassword());
+        this.ce.login(this, this.jTLogin.getText(), this.jPPassword.getPassword());
     }//GEN-LAST:event_jBValiderActionPerformed
 
     private void jBQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitActionPerformed

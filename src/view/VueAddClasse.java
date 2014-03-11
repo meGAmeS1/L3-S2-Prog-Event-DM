@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import controller.ControllerEtablissement;
@@ -17,7 +16,9 @@ import model.Niveau;
  * @author flemoal
  */
 public class VueAddClasse extends javax.swing.JDialog {
+
     private ControllerEtablissement ce;
+
     /**
      * Creates new form VueAddClasse
      */
@@ -25,9 +26,9 @@ public class VueAddClasse extends javax.swing.JDialog {
         super(parent, true);
         this.ce = ce;
         initComponents();
-        
+
         getRootPane().setDefaultButton(JBAdd);
-        
+
         this.jLabelNumero.setText(" " + getNumero());
         setLocationRelativeTo(parent);
     }
@@ -139,16 +140,17 @@ public class VueAddClasse extends javax.swing.JDialog {
     private void JBAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddActionPerformed
         this.ce.addClasse(this, (Niveau) this.jCBNiveau.getSelectedItem(), getNumero());
     }//GEN-LAST:event_JBAddActionPerformed
-    
+
     private int getNumero() {
         Niveau n = (Niveau) this.jCBNiveau.getSelectedItem();
         int num = 1;
-        
-        for(Classe c : ce.getEtablissement().getClasses()) {
-            if (c.getNiveau().compareTo(n) == 0)
+
+        for (Classe c : ce.getEtablissement().getClasses()) {
+            if (c.getNiveau().compareTo(n) == 0) {
                 num++;
+            }
         }
-        
+
         return num;
     }
 

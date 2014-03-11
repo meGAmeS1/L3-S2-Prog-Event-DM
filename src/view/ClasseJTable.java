@@ -6,8 +6,6 @@
 package view;
 
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import model.Matiere;
@@ -28,7 +26,7 @@ public class ClasseJTable extends JTable {
             int modelRow = convertRowIndexToModel(row);
 
             Object value = getModel().getValueAt(modelRow, 2 + Matiere.values().length);
-            
+
             if (value instanceof Float) {
                 float moyenne = (float) value;
                 c.setBackground(Couleur.getMoyenneColor(moyenne));

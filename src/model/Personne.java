@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
@@ -11,6 +10,7 @@ package model;
  * @author flemoal
  */
 public abstract class Personne {
+
     private String login, password;
     private String nom, prenom;
 
@@ -20,11 +20,11 @@ public abstract class Personne {
         this.nom = nom;
         this.prenom = prenom;
     }
-    
+
     public Personne(String nom, String prenom) {
-        this("","",nom,prenom);
+        this("", "", nom, prenom);
     }
-    
+
     public String getLogin() {
         return login;
     }
@@ -52,5 +52,5 @@ public abstract class Personne {
     @Override
     public String toString() {
         return nom + " " + prenom;
-    }   
+    }
 }

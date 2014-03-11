@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
@@ -11,29 +10,27 @@ package model;
  * @author flemoal
  */
 public class Moyenne {
+
     private float note;
     private String commentaire;
-    
-    public Moyenne()
-    {
+
+    public Moyenne() {
         note = -1;
         commentaire = "";
     }
-    
-    public float getNote()
-    {
+
+    public float getNote() {
         return note;
     }
-    
-    public String getCommentaire()
-    {
+
+    public String getCommentaire() {
         return commentaire;
     }
-    
-    public String toString()
-    {
-        if(note==-1) 
+
+    public String toString() {
+        if (note == -1) {
             return "";
+        }
         return String.valueOf(note);
     }
 
@@ -44,8 +41,5 @@ public class Moyenne {
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
-    
-    
-    
-    
+
 }

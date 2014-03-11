@@ -141,12 +141,6 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 1.0;
         jPanel1.add(jScrollPane1, gridBagConstraints);
-
-        jCheckBoxPP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxPPActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -181,17 +175,13 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    private void jCheckBoxPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxPPActionPerformed
-
     private void jCBNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNiveauActionPerformed
         fillJCBNumero();
     }//GEN-LAST:event_jCBNiveauActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        this.ce.affectEnseignant(this, (Enseignant) jListEnseignant.getSelectedValue(), (Niveau) this.jCBNiveau.getSelectedItem(), 
-        (int) this.jCBNumero.getSelectedItem(), jCheckBoxPP.isSelected());
+        this.ce.affectEnseignant(this, (Enseignant) jListEnseignant.getSelectedValue(), (Niveau) this.jCBNiveau.getSelectedItem(),
+                (int) this.jCBNumero.getSelectedItem(), jCheckBoxPP.isSelected());
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void fillJCBNiveau() {
@@ -233,7 +223,7 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillJLEnseignants() {
-        for(Enseignant e : this.ce.getEtablissement().getEnseignants()) {
+        for (Enseignant e : this.ce.getEtablissement().getEnseignants()) {
             this.listeEnseignant.addElement(e);
         }
     }

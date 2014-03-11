@@ -52,12 +52,12 @@ public class VueEnseignant extends javax.swing.JFrame {
         for (int i = 0; i <= Matiere.values().length; i++) {
             this.jTableClasse.getColumnModel().getColumn(2 + i).setCellRenderer(cellRenderer);
         }
-        
+
         this.jTableMatiere.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
 
         this.jPanelClasse.setVisible(false);
         this.jPanelMatiere.setVisible(false);
-        
+
         this.jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         setLocationRelativeTo(parent);

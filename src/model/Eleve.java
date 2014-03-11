@@ -63,7 +63,7 @@ public class Eleve extends Personne {
                 nbNote++;
             }
         }
-        
+
         if (nbNote != 0) {
             return sommeNote / nbNote;
         } else {

@@ -37,7 +37,7 @@ public class ControllerEtablissement {
 
     public ControllerEtablissement() {
         this.etablissement = new Etablissement(new Proviseur("1", "1", "Principal", "Victoria"));
-        
+
         initComponents();
     }
 
@@ -127,7 +127,7 @@ public class ControllerEtablissement {
             JOptionPane.showMessageDialog(vae, "Tous les champs sont obligatoires", "Ajout impossible", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         // Vérification de la concordance des mots de passe
         if (!mdp1.equals(mdp2)) {
             JOptionPane.showMessageDialog(vae, "Les deux mots de passe ne correspondent pas", "Ajout impossible", JOptionPane.WARNING_MESSAGE);
@@ -226,7 +226,7 @@ public class ControllerEtablissement {
         Classe c6e2 = new Classe(Niveau.SIXIEME, 2);
         Classe c5e1 = new Classe(Niveau.CINQUIEME, 1);
         Classe c3e1 = new Classe(Niveau.TROISIEME, 1);
-        
+
         // Création d'enseignants
         Enseignant e1 = new Enseignant("2", "2", "Dupont", "Robert", Matiere.HISTOIRE_GEO);
         Enseignant e2 = new Enseignant("3", "3", "Garrison", "Herbert", Matiere.FRANCAIS);
@@ -235,7 +235,7 @@ public class ControllerEtablissement {
         Enseignant e5 = new Enseignant("6", "6", "Stinson", "Barney", Matiere.EPS);
         Enseignant e6 = new Enseignant("7", "7", "Instrument", "Texas", Matiere.MATHS);
         Enseignant e7 = new Enseignant("8", "8", "Tomie", "Anna", Matiere.SVT);
-        
+
         // Ajout d'enseignants aux classes
         c6e1.addEnseignant(e1, true);
         c6e1.addEnseignant(e2, false);
@@ -251,7 +251,7 @@ public class ControllerEtablissement {
         c3e1.addEnseignant(e5, true);
         c3e1.addEnseignant(e6, true);
         c3e1.addEnseignant(e7, true);
-        
+
         // Ajout d'élèves aux classes
         c6e1.addEleve("Cartman", "Eric");
         c6e1.addEleve("Broflovski", "Kyle");
@@ -286,25 +286,25 @@ public class ControllerEtablissement {
         c3e1.addEleve("Blum-Deckler", "Tiffany");
         c3e1.addEleve("Lane", "Trent");
         c3e1.addEleve("Morgendorffer", "Quinn");
-        
-        for(Eleve e : c6e1.getEleves()){
-            for(Matiere m : Matiere.values()){
-                e.setNote(m, (float)Math.random()*20);
+
+        for (Eleve e : c6e1.getEleves()) {
+            for (Matiere m : Matiere.values()) {
+                e.setNote(m, (float) Math.random() * 20);
             }
         }
-        
-        for(Eleve e : c6e2.getEleves()){
-            for(Matiere m : Matiere.values()){
-                e.setNote(m, (float)Math.random()*20);
+
+        for (Eleve e : c6e2.getEleves()) {
+            for (Matiere m : Matiere.values()) {
+                e.setNote(m, (float) Math.random() * 20);
             }
         }
-        
-        for(Eleve e : c3e1.getEleves()){
-            for(Matiere m : Matiere.values()){
-                e.setNote(m, (float)Math.random()*20);
+
+        for (Eleve e : c3e1.getEleves()) {
+            for (Matiere m : Matiere.values()) {
+                e.setNote(m, (float) Math.random() * 20);
             }
         }
-        
+
         // Inscription des enseignants dans l'établissement
         this.etablissement.addEnseignant(e1);
         this.etablissement.addEnseignant(e2);
@@ -313,7 +313,7 @@ public class ControllerEtablissement {
         this.etablissement.addEnseignant(e5);
         this.etablissement.addEnseignant(e6);
         this.etablissement.addEnseignant(e7);
-        
+
         // Inscriptions des classes dans l'établissement
         this.etablissement.addClasse(c6e1);
         this.etablissement.addClasse(c5e1);

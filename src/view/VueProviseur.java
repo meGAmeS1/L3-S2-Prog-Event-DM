@@ -40,12 +40,12 @@ public class VueProviseur extends javax.swing.JFrame {
         this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
 
         initComponents();
-        
+
         this.jTreeClasses.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        
+
         this.jPanelListeEleves.setVisible(false);
         this.jPanelListeEnseigants.setVisible(false);
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -418,7 +418,7 @@ public class VueProviseur extends javax.swing.JFrame {
         for (int i : jTableEnseignants.getSelectedRows()) {
             le.add((Enseignant) this.ce.getEtablissement().getEnseignants().toArray()[i]);
         }
-        
+
         this.ce.deleteEnseignants(le);
     }
 

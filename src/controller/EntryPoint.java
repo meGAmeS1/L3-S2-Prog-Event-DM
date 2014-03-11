@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
 /**
@@ -20,5 +19,5 @@ public class EntryPoint {
         ControllerEtablissement ce = new ControllerEtablissement();
         ce.demarrerControllerEtablissement();
     }
-    
+
 }

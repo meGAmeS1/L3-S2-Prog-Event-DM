@@ -40,8 +40,12 @@ public class VueEnseignant extends javax.swing.JFrame {
         this.enseignant = enseignant;
         this.tableClasse = new ClasseTableModel();
         this.tableMatiere = new MatiereTableModel();
+        
         initComponents();
-
+        
+        this.jTableClasse.setAutoCreateRowSorter(true);
+        this.jTableMatiere.setAutoCreateRowSorter(true);
+        
         this.jPanelClasse.setVisible(false);
         this.jPanelMatiere.setVisible(false);
 
@@ -59,10 +63,10 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         jPanelClasse = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTableClasse = new javax.swing.JTable();
+        jTableClasse = new ClasseJTable();
         jPanelMatiere = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableMatiere = new javax.swing.JTable();
+        jTableMatiere = new view.MatiereJTable();
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
@@ -97,7 +101,7 @@ public class VueEnseignant extends javax.swing.JFrame {
         jSplitPane1.setResizeWeight(0.1);
 
         jTree1.setModel(getTreeClasses());
-        jTree1.setCellRenderer(new MyTreeCellRenderer(ce,enseignant));
+        jTree1.setCellRenderer(new view.ClasseTreeCellRenderer(ce,enseignant));
         jTree1.setRootVisible(false);
         jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
@@ -288,7 +292,7 @@ public class VueEnseignant extends javax.swing.JFrame {
             } else if (col == 1) {
                 return e.getPrenom();
             } else if (col > 1 && col < 2 + Matiere.values().length) {
-                return String.format("%.2f", e.getNote(Matiere.values()[col - 2]));
+                return e.getNote(Matiere.values()[col - 2]);
             } else if (col == 2 + Matiere.values().length) {
                 return e.getCommentaireGeneral();
             } else {

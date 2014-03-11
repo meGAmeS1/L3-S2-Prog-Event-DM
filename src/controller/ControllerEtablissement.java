@@ -38,65 +38,7 @@ public class ControllerEtablissement {
     public ControllerEtablissement() {
         this.etablissement = new Etablissement(new Proviseur("1", "1", "Principal", "Victoria"));
         
-        // Création de classe
-        Classe c11 = new Classe(Niveau.SIXIEME, 1);
-        Classe c12 = new Classe(Niveau.SIXIEME, 2);
-        Classe c21 = new Classe(Niveau.CINQUIEME, 1);
-        
-        // Création d'enseignants
-        Enseignant e1 = new Enseignant("2", "2", "Dupont", "Robert", Matiere.HISTOIRE_GEO);
-        Enseignant e2 = new Enseignant("3", "3", "Garrison", "Herbert", Matiere.FRANCAIS);
-        Enseignant e3 = new Enseignant("4", "4", "Mackey", "M.", Matiere.ANGLAIS);
-        Enseignant e4 = new Enseignant("5", "5", "Simpson", "Homer", Matiere.PHYSIQUE);
-        Enseignant e5 = new Enseignant("6", "6", "Stinson", "Barney", Matiere.EPS);
-        Enseignant e6 = new Enseignant("7", "7", "Insrtument", "Texas", Matiere.MATHS);
-        Enseignant e7 = new Enseignant("8", "8", "Tomie", "Anna", Matiere.SVT);
-        
-        // Ajout d'enseignants aux classes
-        c11.addEnseignant(e1, true);
-        c11.addEnseignant(e2, false);
-        c11.addEnseignant(e3, false);
-        c11.addEnseignant(e4, false);
-        c11.addEnseignant(e5, false);
-        c11.addEnseignant(e6, false);
-        c11.addEnseignant(e7, false);
-        c12.addEnseignant(e1, false);
-        c12.addEnseignant(e4, true);
-        
-        // Ajout d'élèves aux classes
-        c11.addEleve("Cartman", "Eric");
-        c11.addEleve("Broflovski", "Kyle");
-        c11.addEleve("Marsh", "Stan");
-        c11.addEleve("McCormick", "Kenny");
-        c12.addEleve("Simpson", "Bart");
-        c12.addEleve("Van Houten", "Milhouse");
-        
-        for(Eleve e : c11.getEleves()){
-            for(Matiere m : Matiere.values()){
-                e.setNote(m, (float)Math.random()*20);
-            }
-        }
-        
-        for(Eleve e : c12.getEleves()){
-            for(Matiere m : Matiere.values()){
-                e.setNote(m, (float)Math.random()*20);
-            }
-        }
-        
-        
-        // Inscription des enseignants dans l'établissement
-        this.etablissement.addEnseignant(e1);
-        this.etablissement.addEnseignant(e2);
-        this.etablissement.addEnseignant(e3);
-        this.etablissement.addEnseignant(e4);
-        this.etablissement.addEnseignant(e5);
-        this.etablissement.addEnseignant(e6);
-        this.etablissement.addEnseignant(e7);
-        
-        // Inscriptions des classes dans l'établissement
-        this.etablissement.addClasse(c11);
-        this.etablissement.addClasse(c21);
-        this.etablissement.addClasse(c12);
+        initComponents();
     }
 
     public Etablissement getEtablissement() {
@@ -276,5 +218,106 @@ public class ControllerEtablissement {
             this.ve = null;
             new VueLogin(this).setVisible(true);
         }
+    }
+
+    private void initComponents() {
+        // Création de classe
+        Classe c6e1 = new Classe(Niveau.SIXIEME, 1);
+        Classe c6e2 = new Classe(Niveau.SIXIEME, 2);
+        Classe c5e1 = new Classe(Niveau.CINQUIEME, 1);
+        Classe c3e1 = new Classe(Niveau.TROISIEME, 1);
+        
+        // Création d'enseignants
+        Enseignant e1 = new Enseignant("2", "2", "Dupont", "Robert", Matiere.HISTOIRE_GEO);
+        Enseignant e2 = new Enseignant("3", "3", "Garrison", "Herbert", Matiere.FRANCAIS);
+        Enseignant e3 = new Enseignant("4", "4", "Mackey", "M.", Matiere.ANGLAIS);
+        Enseignant e4 = new Enseignant("5", "5", "Simpson", "Homer", Matiere.PHYSIQUE);
+        Enseignant e5 = new Enseignant("6", "6", "Stinson", "Barney", Matiere.EPS);
+        Enseignant e6 = new Enseignant("7", "7", "Insrtument", "Texas", Matiere.MATHS);
+        Enseignant e7 = new Enseignant("8", "8", "Tomie", "Anna", Matiere.SVT);
+        
+        // Ajout d'enseignants aux classes
+        c6e1.addEnseignant(e1, true);
+        c6e1.addEnseignant(e2, false);
+        c6e1.addEnseignant(e3, false);
+        c6e1.addEnseignant(e4, false);
+        c6e1.addEnseignant(e5, false);
+        c6e1.addEnseignant(e6, false);
+        c6e1.addEnseignant(e7, false);
+        c6e2.addEnseignant(e1, false);
+        c6e2.addEnseignant(e4, true);;
+        c3e1.addEnseignant(e1, false);
+        c3e1.addEnseignant(e3, false);
+        c3e1.addEnseignant(e5, true);
+        c3e1.addEnseignant(e6, true);
+        c3e1.addEnseignant(e7, true);
+        
+        // Ajout d'élèves aux classes
+        c6e1.addEleve("Cartman", "Eric");
+        c6e1.addEleve("Broflovski", "Kyle");
+        c6e1.addEleve("Marsh", "Stan");
+        c6e1.addEleve("McCormick", "Kenny");
+        c6e1.addEleve("Faulk", "Anne");
+        c6e1.addEleve("Stevens", "Bebe");
+        c6e1.addEleve("Biggle", "Bradley");
+        c6e1.addEleve("Guermont", "Brydon");
+        c6e1.addEleve("Donovan", "Clyde");
+        c6e1.addEleve("Tucker", "Craig");
+        c6e1.addEleve("Harrison", "Gary");
+        c6e1.addEleve("Turner", "Heidi");
+        c6e1.addEleve("Valmer", "Jimmy");
+        c6e1.addEleve("Stoley", "Kevin");
+        c6e1.addEleve("Stotch", "Butters");
+        c6e1.addEleve("Pirrup", "Philip");
+        c6e1.addEleve("Turner", "Sally");
+        c6e1.addEleve("Burch", "Timmy");
+        c6e1.addEleve("Black", "Token");
+        c6e1.addEleve("Tweak", "Tweek");
+        c6e1.addEleve("Testaburger", "Wendy");
+        c6e2.addEleve("Simpson", "Bart");
+        c6e2.addEleve("Van Houten", "Milhouse");
+        c6e2.addEleve("Prince", "Martin");
+        c6e2.addEleve("Muntz", "Nelson");
+        c3e1.addEleve("Morgendorffer", "Daria");
+        c3e1.addEleve("Lane", "Jane");
+        c3e1.addEleve("Taylor", "Brittany");
+        c3e1.addEleve("Griffin", "Sandi");
+        c3e1.addEleve("Rowe", "Stacy");
+        c3e1.addEleve("Blum-Deckler", "Tiffany");
+        c3e1.addEleve("Lane", "Trent");
+        c3e1.addEleve("Morgendorffer", "Quinn");
+        
+        for(Eleve e : c6e1.getEleves()){
+            for(Matiere m : Matiere.values()){
+                e.setNote(m, (float)Math.random()*20);
+            }
+        }
+        
+        for(Eleve e : c6e2.getEleves()){
+            for(Matiere m : Matiere.values()){
+                e.setNote(m, (float)Math.random()*20);
+            }
+        }
+        
+        for(Eleve e : c3e1.getEleves()){
+            for(Matiere m : Matiere.values()){
+                e.setNote(m, (float)Math.random()*20);
+            }
+        }
+        
+        // Inscription des enseignants dans l'établissement
+        this.etablissement.addEnseignant(e1);
+        this.etablissement.addEnseignant(e2);
+        this.etablissement.addEnseignant(e3);
+        this.etablissement.addEnseignant(e4);
+        this.etablissement.addEnseignant(e5);
+        this.etablissement.addEnseignant(e6);
+        this.etablissement.addEnseignant(e7);
+        
+        // Inscriptions des classes dans l'établissement
+        this.etablissement.addClasse(c6e1);
+        this.etablissement.addClasse(c5e1);
+        this.etablissement.addClasse(c6e2);
+        this.etablissement.addClasse(c3e1);
     }
 }

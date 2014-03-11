@@ -44,10 +44,10 @@ public class VueLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
-        jBValider = new javax.swing.JButton();
         jBQuit = new javax.swing.JButton();
+        jBValider = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Connexion à votre espace");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -95,14 +95,6 @@ public class VueLogin extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         jPanel1.add(jPPassword, gridBagConstraints);
 
-        jBValider.setText("Valider");
-        jBValider.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBValiderActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jBValider);
-
         jBQuit.setText("Quitter");
         jBQuit.setToolTipText("");
         jBQuit.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +103,14 @@ public class VueLogin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jBQuit);
+
+        jBValider.setText("Valider");
+        jBValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBValiderActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBValider);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

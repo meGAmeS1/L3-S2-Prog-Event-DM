@@ -24,6 +24,9 @@
                   <Connection code="this.tableClasse" type="code"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ClasseJTable()"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -51,6 +54,9 @@
                   <Connection code="this.tableMatiere" type="code"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.MatiereJTable()"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -149,7 +155,7 @@
                   <Connection code="getTreeClasses()" type="code"/>
                 </Property>
                 <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new MyTreeCellRenderer(ce,enseignant)" type="code"/>
+                  <Connection code="new view.ClasseTreeCellRenderer(ce,enseignant)" type="code"/>
                 </Property>
                 <Property name="rootVisible" type="boolean" value="false"/>
               </Properties>

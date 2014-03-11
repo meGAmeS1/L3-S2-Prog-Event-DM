@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import java.awt.Component;
@@ -17,7 +16,8 @@ import model.Matiere;
  *
  * @author flemoal
  */
-public class ClasseJTable extends JTable{
+public class ClasseJTable extends JTable {
+
     @Override
     public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
         Component c = super.prepareRenderer(renderer, row, column);
@@ -26,27 +26,15 @@ public class ClasseJTable extends JTable{
         if (!isRowSelected(row)) {
             c.setBackground(getBackground());
             int modelRow = convertRowIndexToModel(row);
+
+            Object value = getModel().getValueAt(modelRow, 2 + Matiere.values().length);
             
-            float sommeNote = 0;
-            int nbNote = 0;
-            
-            for(int i = 0; i < Matiere.values().length ; i++) {
-                Object value = getModel().getValueAt(modelRow, 2 + i);
-                
-                if (value instanceof Float) {
-                    sommeNote += (float) value;
-                    nbNote++;
-                }
-            }
-            
-            if(nbNote == 0) {
-                c.setBackground(Couleur.getErrorColor());
-            } else {
-                float moyenne = sommeNote / nbNote;
+            if (value instanceof Float) {
+                float moyenne = (float) value;
                 c.setBackground(Couleur.getMoyenneColor(moyenne));
+            } else {
+                c.setBackground(Couleur.getErrorColor());
             }
-            
-            
 
         }
 

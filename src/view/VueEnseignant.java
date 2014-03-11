@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreeSelectionModel;
 import model.Classe;
 import model.Eleve;
 import model.Enseignant;
@@ -32,6 +32,8 @@ public class VueEnseignant extends javax.swing.JFrame {
     private ClasseTableModel tableClasse;
     private MatiereTableModel tableMatiere;
 
+    private final static YourCellRenderer cellRenderer = new YourCellRenderer("0.00");
+
     /**
      * Creates new form VueEnseignant
      */
@@ -40,14 +42,22 @@ public class VueEnseignant extends javax.swing.JFrame {
         this.enseignant = enseignant;
         this.tableClasse = new ClasseTableModel();
         this.tableMatiere = new MatiereTableModel();
-        
+
         initComponents();
-        
+
         this.jTableClasse.setAutoCreateRowSorter(true);
         this.jTableMatiere.setAutoCreateRowSorter(true);
+
+        for (int i = 0; i <= Matiere.values().length; i++) {
+            this.jTableClasse.getColumnModel().getColumn(2 + i).setCellRenderer(cellRenderer);
+        }
         
+        this.jTableMatiere.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+
         this.jPanelClasse.setVisible(false);
         this.jPanelMatiere.setVisible(false);
+        
+        this.jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         setLocationRelativeTo(null);
     }
@@ -190,7 +200,7 @@ public class VueEnseignant extends javax.swing.JFrame {
                     Object nodeParentInfo = nodePraent.getUserObject();
                     if ((nodeParentInfo instanceof Classe)) {
                         Classe c = (Classe) nodeParentInfo;
-                        
+
                         this.tableMatiere.setIsProfOfThis(enseignant.getMatiere().equals(mat));
                         this.tableMatiere.refreshWith(c.getEleves(), mat);
 
@@ -266,6 +276,7 @@ public class VueEnseignant extends javax.swing.JFrame {
             for (Matiere m : Matiere.values()) {
                 columns.add(m.toString());
             }
+            columns.add("Moyenne");
             columns.add("Commentaire général");
 
             columnNames = columns.toArray(new String[3 + Matiere.values().length]);
@@ -294,6 +305,8 @@ public class VueEnseignant extends javax.swing.JFrame {
             } else if (col > 1 && col < 2 + Matiere.values().length) {
                 return e.getNote(Matiere.values()[col - 2]);
             } else if (col == 2 + Matiere.values().length) {
+                return e.getMoyenne();
+            } else if (col == 3 + Matiere.values().length) {
                 return e.getCommentaireGeneral();
             } else {
                 return null;
@@ -317,7 +330,7 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         @Override
         public boolean isCellEditable(int row, int col) {
-            if (col == 2 + Matiere.values().length) {
+            if (col == 3 + Matiere.values().length) {
                 return isProfPrincipal;
             } else {
                 return false;
@@ -330,7 +343,7 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            if (col != 2 + Matiere.values().length) {
+            if (col != 3 + Matiere.values().length) {
                 return;
             }
 

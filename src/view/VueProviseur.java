@@ -14,6 +14,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeSelectionModel;
 import model.Classe;
 import model.Eleve;
 import model.Enseignant;
@@ -38,10 +39,13 @@ public class VueProviseur extends javax.swing.JFrame {
         this.tableEnseignants = new MyTableModel(this.ce.getEtablissement().getEnseignants(), this);
 
         initComponents();
-
-        setLocationRelativeTo(null);
+        
+        this.jTreeClasses.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        
         this.jPanelListeEleves.setVisible(false);
         this.jPanelListeEnseigants.setVisible(false);
+        
+        setLocationRelativeTo(null);
     }
 
     /**

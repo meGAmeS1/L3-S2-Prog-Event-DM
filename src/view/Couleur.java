@@ -13,7 +13,7 @@ import java.awt.Color;
  */
 public class Couleur {
 
-    private static final int alpha = 70;
+    private static final int alpha = 65;
     private static final Color colMin = new Color(150, 35, 55);
     private static final Color colMoy = new Color(220, 180, 10);
     private static final Color colMax = new Color(90, 170, 50);

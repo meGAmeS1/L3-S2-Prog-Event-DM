@@ -41,9 +41,10 @@ public class VueEnseignant extends javax.swing.JFrame {
         this.tableClasse = new ClasseTableModel();
         this.tableMatiere = new MatiereTableModel();
         initComponents();
-        
+
         this.jPanelClasse.setVisible(false);
         this.jPanelMatiere.setVisible(false);
+
         setLocationRelativeTo(null);
     }
 
@@ -170,33 +171,32 @@ public class VueEnseignant extends javax.swing.JFrame {
 
                 this.tableClasse.setIsProfPrincipal(c.getProfesseurPrincipal().equals(enseignant));
                 this.tableClasse.refreshWith(c.getEleves());
-                
+
                 this.jPanel1.removeAll();
                 this.jPanel1.add(jPanelClasse, BorderLayout.CENTER);
-                
+
                 this.jPanelClasse.setVisible(true);
                 this.jPanelMatiere.setVisible(false);
                 return;
             } else if ((nodeInfo instanceof Matiere)) {
                 Matiere mat = (Matiere) nodeInfo;
-                Classe cla = null;
-                for (Classe c : ce.getEtablissement().getClasses()) {
-                    if (c.getAffichage().equals(node.getParent().toString())) {
-                        cla = c;
-                        break;
-                    }
-                }
+                DefaultMutableTreeNode nodePraent = (DefaultMutableTreeNode) node.getParent();
 
-                if (cla != null) {
-                    this.tableMatiere.setIsProfOfThis(enseignant.getMatiere().equals(mat));
-                    this.tableMatiere.refreshWith(cla.getEleves(), mat);
-                    
-                    this.jPanel1.removeAll();
-                    this.jPanel1.add(jPanelMatiere, BorderLayout.CENTER);
-                    
-                    this.jPanelClasse.setVisible(false);
-                    this.jPanelMatiere.setVisible(true);
-                    return;
+                if (nodePraent != null) {
+                    Object nodeParentInfo = nodePraent.getUserObject();
+                    if ((nodeParentInfo instanceof Classe)) {
+                        Classe c = (Classe) nodeParentInfo;
+                        
+                        this.tableMatiere.setIsProfOfThis(enseignant.getMatiere().equals(mat));
+                        this.tableMatiere.refreshWith(c.getEleves(), mat);
+
+                        this.jPanel1.removeAll();
+                        this.jPanel1.add(jPanelMatiere, BorderLayout.CENTER);
+
+                        this.jPanelClasse.setVisible(false);
+                        this.jPanelMatiere.setVisible(true);
+                        return;
+                    }
                 }
             }
 
@@ -408,7 +408,9 @@ public class VueEnseignant extends javax.swing.JFrame {
         public void setValueAt(Object value, int row, int col) {
             if (col == 2) {
                 Float note = (Float) value;
-                if (note < 0 || note > 20) return;
+                if (note < 0 || note > 20) {
+                    return;
+                }
                 Eleve e = (Eleve) eleves.toArray()[row];
                 e.setNote(mat, note);
             } else if (col == 3) {

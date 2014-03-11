@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -32,7 +33,7 @@ public class VueProviseur extends javax.swing.JFrame {
     /**
      * Creates new form VueProviseur
      */
-    public VueProviseur(ControllerEtablissement ce) {
+    public VueProviseur(ControllerEtablissement ce, JFrame parent) {
         this.ce = ce;
         this.listeEleves = new DefaultListModel();
         this.listeEnseignants = new DefaultListModel();
@@ -45,7 +46,7 @@ public class VueProviseur extends javax.swing.JFrame {
         this.jPanelListeEleves.setVisible(false);
         this.jPanelListeEnseigants.setVisible(false);
         
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -377,7 +378,7 @@ public class VueProviseur extends javax.swing.JFrame {
 
             // Remplissage de la liste des élèves
             for (Eleve e : classe.getEleves()) {
-                this.listeEleves.addElement(e.toString());
+                this.listeEleves.addElement(e);
             }
 
             // Remplissage de la liste des enseignants
@@ -417,8 +418,7 @@ public class VueProviseur extends javax.swing.JFrame {
         for (int i : jTableEnseignants.getSelectedRows()) {
             le.add((Enseignant) this.ce.getEtablissement().getEnseignants().toArray()[i]);
         }
-
-//        this.ce.getEtablissement().getEnseignants().removeAll(le);
+        
         this.ce.deleteEnseignants(le);
     }
 

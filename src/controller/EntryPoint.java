@@ -6,8 +6,6 @@
 
 package controller;
 
-import java.util.Locale;
-
 /**
  *
  * @author flemoal

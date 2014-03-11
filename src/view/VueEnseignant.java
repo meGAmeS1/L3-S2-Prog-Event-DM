@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
+import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -37,7 +38,7 @@ public class VueEnseignant extends javax.swing.JFrame {
     /**
      * Creates new form VueEnseignant
      */
-    public VueEnseignant(ControllerEtablissement ce, Enseignant enseignant) {
+    public VueEnseignant(ControllerEtablissement ce, Enseignant enseignant, JFrame parent) {
         this.ce = ce;
         this.enseignant = enseignant;
         this.tableClasse = new ClasseTableModel();
@@ -59,7 +60,7 @@ public class VueEnseignant extends javax.swing.JFrame {
         
         this.jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
     }
 
     /**

@@ -7,6 +7,7 @@
 package view;
 
 import controller.ControllerEtablissement;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,13 +20,13 @@ public class VueLogin extends javax.swing.JFrame {
     /**
      * Creates new form VueLogin
      */
-    public VueLogin(ControllerEtablissement ce) {
+    public VueLogin(ControllerEtablissement ce, JFrame parent) {
         this.ce = ce;
         initComponents();
         
         getRootPane().setDefaultButton(jBValider);
         
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -67,12 +68,6 @@ public class VueLogin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel1.add(jLabel1, gridBagConstraints);
-
-        jTLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTLoginActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -144,10 +139,6 @@ public class VueLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTLoginActionPerformed
 
     private void jBValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBValiderActionPerformed
         this.ce.login(this,this.jTLogin.getText(),this.jPPassword.getPassword());

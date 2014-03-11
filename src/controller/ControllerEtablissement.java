@@ -46,7 +46,7 @@ public class ControllerEtablissement {
     }
 
     public void demarrerControllerEtablissement() {
-        new VueLogin(this).setVisible(true);
+        new VueLogin(this, null).setVisible(true);
     }
 
     public void quitApp(JFrame jf) {
@@ -65,9 +65,9 @@ public class ControllerEtablissement {
         String pass = new String(password);
 
         if (etablissement.getProviseur().getLogin().equals(login) && etablissement.getProviseur().getPassword().equals(pass)) {
-            vl.dispose();
             // Affichage fenêtre proviseur
-            vp = new VueProviseur(this);
+            vp = new VueProviseur(this, vl);
+            vl.dispose();
             vp.setVisible(true);
 
         } else {
@@ -80,9 +80,9 @@ public class ControllerEtablissement {
             }
 
             if (ens != null) {
-                vl.dispose();
                 // Affichage fenêtre enseignant
-                ve = new VueEnseignant(this, ens);
+                ve = new VueEnseignant(this, ens, vl);
+                vl.dispose();
                 ve.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(vl, "La combinaison login/mot de passe est érronée", "Connexion impossible", JOptionPane.WARNING_MESSAGE);
@@ -183,9 +183,9 @@ public class ControllerEtablissement {
 
         if (this.etablissement.addClasse(new Classe(niveau, numero))) {
             JOptionPane.showMessageDialog(vac, "La classe a bien été ajoutée", "Ajout éffectué", JOptionPane.INFORMATION_MESSAGE);
+            vac.dispose();
             vp.refreshTreeClasses();
             vp.refreshClasseInfos();
-            vac.dispose();
         } else {
             JOptionPane.showMessageDialog(vac, "Erreur lors de l'ajout", "Ajout impossible", JOptionPane.ERROR_MESSAGE);
         }
@@ -200,23 +200,23 @@ public class ControllerEtablissement {
         this.etablissement.getClasse(niveau, numero).addEnseignant(enseignant, pp);
 
         JOptionPane.showMessageDialog(vae, "Le professeur a bien été affecté à cette classe", "Affectation éffectuée", JOptionPane.INFORMATION_MESSAGE);
-        vp.refreshClasseInfos();
         vae.dispose();
+        vp.refreshClasseInfos();
     }
 
     public void disconnect(JFrame jf) {
 
         int reponse = JOptionPane.showConfirmDialog(
-                vp,
+                jf,
                 "Voulez-vous vraiment revenir à l'écran de connexion ?",
                 "Déconnexion ?",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
         if (reponse == JOptionPane.YES_OPTION) {
+            new VueLogin(this, jf).setVisible(true);
             jf.dispose();
             this.vp = null;
             this.ve = null;
-            new VueLogin(this).setVisible(true);
         }
     }
 
@@ -233,7 +233,7 @@ public class ControllerEtablissement {
         Enseignant e3 = new Enseignant("4", "4", "Mackey", "M.", Matiere.ANGLAIS);
         Enseignant e4 = new Enseignant("5", "5", "Simpson", "Homer", Matiere.PHYSIQUE);
         Enseignant e5 = new Enseignant("6", "6", "Stinson", "Barney", Matiere.EPS);
-        Enseignant e6 = new Enseignant("7", "7", "Insrtument", "Texas", Matiere.MATHS);
+        Enseignant e6 = new Enseignant("7", "7", "Instrument", "Texas", Matiere.MATHS);
         Enseignant e7 = new Enseignant("8", "8", "Tomie", "Anna", Matiere.SVT);
         
         // Ajout d'enseignants aux classes

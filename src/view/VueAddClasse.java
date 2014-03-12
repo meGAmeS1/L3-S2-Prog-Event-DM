@@ -54,6 +54,7 @@ public class VueAddClasse extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajout d'une classe");
+        setResizable(false);
 
         jBCancel.setText("Annuler");
         jBCancel.addActionListener(new java.awt.event.ActionListener() {

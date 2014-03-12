@@ -69,6 +69,7 @@ public class VueAffectEnseignant extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Affecter un enseignant à une classe");
+        setResizable(false);
 
         jButtonCancel.setText("Annuler");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {

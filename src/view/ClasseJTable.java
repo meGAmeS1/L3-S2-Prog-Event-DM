@@ -27,13 +27,12 @@ public class ClasseJTable extends JTable {
 
             Object value = getModel().getValueAt(modelRow, 2 + Matiere.values().length);
 
-            if (value instanceof Float) {
+            if (value instanceof Float && (float) value != -1) {
                 float moyenne = (float) value;
                 c.setBackground(Couleur.getMoyenneColor(moyenne));
             } else {
                 c.setBackground(Couleur.getErrorColor());
             }
-
         }
 
         return c;

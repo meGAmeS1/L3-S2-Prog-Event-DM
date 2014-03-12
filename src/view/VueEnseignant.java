@@ -46,15 +46,12 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         initComponents();
 
-        this.jTableClasse.setAutoCreateRowSorter(true);
-        this.jTableMatiere.setAutoCreateRowSorter(true);
-
         for (int i = 0; i <= Matiere.values().length; i++) {
             this.jTableClasse.getColumnModel().getColumn(2 + i).setCellRenderer(cellRenderer);
         }
 
         this.jTableMatiere.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
-
+        
         this.jPanelClasse.setVisible(false);
         this.jPanelMatiere.setVisible(false);
 
@@ -89,6 +86,7 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         jPanelClasse.setLayout(new java.awt.BorderLayout());
 
+        jTableClasse.setAutoCreateRowSorter(true);
         jTableClasse.setModel(this.tableClasse);
         jScrollPane2.setViewportView(jTableClasse);
 
@@ -96,12 +94,14 @@ public class VueEnseignant extends javax.swing.JFrame {
 
         jPanelMatiere.setLayout(new java.awt.BorderLayout());
 
+        jTableMatiere.setAutoCreateRowSorter(true);
         jTableMatiere.setModel(this.tableMatiere);
         jScrollPane4.setViewportView(jTableMatiere);
 
         jPanelMatiere.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Gestions des classes - Enseignant");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -285,6 +285,11 @@ public class VueEnseignant extends javax.swing.JFrame {
             this.eleves = new TreeSet<>();
             this.isProfPrincipal = false;
         }
+        
+        @Override
+        public Class getColumnClass(int c) {
+            return getValueAt(0, c).getClass();
+        }
 
         @Override
         public int getRowCount() {
@@ -312,11 +317,6 @@ public class VueEnseignant extends javax.swing.JFrame {
             } else {
                 return null;
             }
-        }
-
-        @Override
-        public Class getColumnClass(int c) {
-            return getValueAt(0, c).getClass();
         }
 
         @Override

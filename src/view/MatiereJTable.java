@@ -23,8 +23,14 @@ public class MatiereJTable extends JTable {
         if (!isRowSelected(row)) {
             c.setBackground(getBackground());
             int modelRow = convertRowIndexToModel(row);
-            float note = (float) getModel().getValueAt(modelRow, 2);
-            c.setBackground(Couleur.getNoteColor(note));
+            Object value = getModel().getValueAt(modelRow, 2);
+
+            if (value instanceof Float && (float) value != -1) {
+                float note = (float) value;
+                c.setBackground(Couleur.getNoteColor(note));
+            } else {
+                c.setBackground(Couleur.getErrorColor());
+            }
 
         }
 

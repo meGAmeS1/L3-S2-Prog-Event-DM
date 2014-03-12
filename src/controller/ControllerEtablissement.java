@@ -304,7 +304,10 @@ public class ControllerEtablissement {
                 e.setNote(m, (float) Math.random() * 20);
             }
         }
-
+        
+        
+//         c6e2.addEleve("Renquiest", "Francine");
+        
         // Inscription des enseignants dans l'établissement
         this.etablissement.addEnseignant(e1);
         this.etablissement.addEnseignant(e2);

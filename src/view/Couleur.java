@@ -17,7 +17,7 @@ public class Couleur {
     private static final Color colMin = new Color(150, 35, 55);
     private static final Color colMoy = new Color(220, 180, 10);
     private static final Color colMax = new Color(90, 170, 50);
-    private static final Color colErr = new Color(14, 47, 89, alpha);
+    private static final Color colErr = new Color(56, 78, 99, alpha);
 
     private static final int moyMin = 6;
     private static final int moyMax = 14;
